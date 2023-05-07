@@ -82,11 +82,3 @@ function removeSeveral() {
   characters.splice(removeSeveral2, 1);
   console.log(characters);
 }
-
-//TO-Do 7/5:
-//1. Koppla ihop alla funktioner och kolla att programmet fungerar
-
-//EXTRA.
-//Input validation på samtliga functioner.
-//-Separera funktionerna i olika filer.
-//Enhetstester för varje funktion i separata testfiler.

@@ -7,6 +7,7 @@ console.log(characters);
 
 const connectionString =
   "mongodb+srv://filipnyman7:<password>@philscluster0.5wvjvwb.mongodb.net/?retryWrites=true&w=majority";
+//Need the rigth password.
 
 async function addFirstCharacter() {
   const first = prompt("Add Star Wars character to list! ");

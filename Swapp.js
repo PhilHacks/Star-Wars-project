@@ -1,8 +1,12 @@
 const prompt = require("prompt-sync")();
+const mongoose = require("mongoose");
 const axios = require("axios");
 
 let characters = [];
 console.log(characters);
+
+const connectionString =
+  "mongodb+srv://filipnyman7:<password>@philscluster0.5wvjvwb.mongodb.net/?retryWrites=true&w=majority";
 
 async function addFirstCharacter() {
   const first = prompt("Add Star Wars character to list! ");
@@ -39,16 +43,16 @@ async function addSecondCharacter() {
         characters.push(second);
       }
       console.log(characters);
-      removeStarWarsCharacter();
-      addSeveral();
-      moveCharacters();
-      removeSeveral();
     })
     .catch((error) => {
       console.log("Error2: Something went wrong, try again ");
       addSecondCharacter();
     });
 }
+removeStarWarsCharacter();
+addSeveral();
+moveCharacters();
+removeSeveral();
 
 function removeStarWarsCharacter() {
   const remove = prompt("Enter index of character to remove it (0, 1 etc.):");

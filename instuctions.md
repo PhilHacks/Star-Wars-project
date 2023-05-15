@@ -19,20 +19,18 @@ Bonus: 5. I want to be asked to remove multiple characters by names
 6. I want to be asked to add multiple characters by names
    //add multiple characters by name
 
-split each word and put it into array
+---
 
-marvin filip benno
+Separation of concerns is a software design principle that suggests separating different functionalities of a program into distinct modules, classes, or functions. This helps to improve code readability, maintainability, and reusability. Here are some suggestions for implementing separation of concerns in the given code:
 
-// If-else-sats:
-if (x < 10) {
-doSomething();
-} else {
-doSomethingElse();
-}
+1.Move the database-related code to a separate module or file. This will help to keep the database code separate from the application logic and make it more reusable.
 
-// While-loop:
-while (x < 10) {
-doSomething();
-x++;
-}
-doSomethingElse();
+2.Move the API-related code to a separate module or file. This will help to keep the API code separate from the application logic and make it more reusable.
+
+3.Move the user input/output code (e.g., prompt, console.log) to a separate module or file. This will help to keep the user interface separate from the application logic and make it more reusable.
+
+4.Split the main logic into smaller functions or modules. This will make the code more modular and easier to read, test, and maintain.
+
+5.Use dependency injection or inversion of control to decouple the different modules or functions. This will make the code more flexible and easier to test and maintain.
+
+6.Use error handling techniques to handle errors in a consistent and modular way. This will make the code more robust and easier to debug.

@@ -1,3 +1,13 @@
+// const { Character } = require("./database");
+// const { searchCharacter } = require("./api");
+// const {
+//   promptAddCharacter,
+//   promptAddAnotherCharacter,
+//   promptRemoveCharacter,
+//   promptAddSeveralCharacters,
+//   promptMoveCharacter,
+//   promptRemoveSeveralCharacters
+
 const prompt = require("prompt-sync")();
 
 const axios = require("axios");

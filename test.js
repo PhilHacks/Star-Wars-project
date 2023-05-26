@@ -1,12 +1,8 @@
 const mongoose = require("mongoose");
 
-const uri =
-  "mongodb+srv://filipnyman7:filipnyman7@philscluster0.5wvjvwb.mongodb.net/SWAPI?retryWrites=true&w=majority";
-
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const uri = mongoose.connect(
+  "mongodb+srv://filipnyman7:filipnyman7@philscluster0.5wvjvwb.mongodb.net/SWAPI?retryWrites=true&w=majority"
+);
 
 const characterSchema = new mongoose.Schema({
   name: String,
@@ -18,7 +14,7 @@ const Character = mongoose.model("Character", { name: String });
 
 async function testCode() {
   try {
-    const newCharacter = new Character({ name: "Luke Skywalker" });
+    const newCharacter = new Character({ name: "P" });
     await newCharacter.save();
     console.log("New character saved successfully!");
   } catch (error) {

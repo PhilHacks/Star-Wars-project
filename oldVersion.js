@@ -9,7 +9,8 @@ async function addFirstCharacter() {
   await axios
     .get(`https://swapi.dev/api/people/?search=${first}`)
     .then((response) => {
-      if (response.data.count === 0) {
+      const peopleList = response.data; //gör det enklare för dig
+      if (peopleList.count === 0) {
         console.log(`No Star Wars characters found matching ${first}`);
         addFirstCharacter();
       } else {

@@ -1,24 +1,3 @@
-// // Importera Character-objektet från "mongodb.js" filen
-// const { Character } = require("./mongodb");
-
-// // Importera getCharacterNames-funktionen från "swapi.js" filen
-// const { getCharacterNames } = require("./swapi");
-
-// // Importera olika funktioner från "ui.js" filen
-// const {
-//   promptAddCharacter,
-//   // promptAddAnotherCharacter,
-//   // promptRemoveCharacter,
-//   // promptAddSeveralCharacters,
-//   // promptMoveCharacter,
-//   // promptRemoveSeveralCharacters,
-//   // printCharacters,
-// } = require("./ui");
-
-// main.js förklaring kod:
-// - Importera objektet Character från filen "mongodb.js" för att kunna använda det i den aktuella filen.
-// - Importera funktionen getCharacterNames från filen "swapi.js" för att kunna använda den och hämta Star Wars-karaktärernas namn från ett externt API.
-// - Importera olika funktioner från filen "ui.js" för att använda dem i programmet. Dessa funktioner inkluderar promptAddCharacter, promptAddAnotherCharacter, promptRemoveCharacter, promptAddSeveralCharacters, promptMoveCharacter, promptRemoveSeveralCharacters och printCharacters. Dessa funktioner används för att interagera med användaren och utföra olika åtgärder som att lägga till eller ta bort karaktärer, flytta karaktärer eller skriva ut karaktärer i konsolen.
 const axios = require("axios");
 const prompt = require("prompt-sync")();
 const mongoose = require("mongoose");

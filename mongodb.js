@@ -58,3 +58,5 @@ module.exports = {
 // - Karaktärerna sparas i databasen med hjälp av Character-modellen och insertMany.
 // - Om det uppstår fel under hämtning och sparning av data, skrivs ett felmeddelande ut.
 // - Modellen Character exporteras för att kunna användas i andra filer.
+
+// .

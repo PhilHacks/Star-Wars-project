@@ -1,7 +1,7 @@
 // Ansvarig för API-anropet till Swapi
-const axios = require("axios");
+import axios from "axios";
 
-async function getCharacterNames() {
+export async function getCharacterNames() {
   try {
     const allCharacterNames = []; // En array för att lagra alla teckennamn
 
@@ -26,7 +26,7 @@ async function getCharacterNames() {
 }
 
 // Funktion för att hämta en specifik karaktärs information baserat på namnet
-async function fetchCharacterData(characterName) {
+export async function fetchCharacterData(characterName) {
   try {
     const response = await axios.get(
       `https://swapi.dev/api/people/?search=${characterName}`
@@ -45,9 +45,6 @@ async function fetchCharacterData(characterName) {
     throw error;
   }
 }
-
-// Exportera funktionen
-module.exports = { getCharacterNames, fetchCharacterData };
 
 // Swapi.js SFörklaringen av koden:
 // - Axios importeras för att använda för HTTP-anrop.

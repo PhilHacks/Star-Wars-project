@@ -9,9 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.4.0",
-    "mongodb": "^5.5.0",
-    "mongoose": "^7.1.1",
+    "axios": "^1.6.0",
+    "mongodb": "^6.2.0",
+    "mongoose": "^4.13.21",
     "mongoose-auto-increment": "^5.0.1",
     "prompt-sync": "^4.2.0"
   }

@@ -1,6 +1,5 @@
 // Ansvarig för API-anropet till Swapi
 const axios = require("axios");
-const { db, Character } = require("./mongodb");
 
 async function getCharacterNames() {
   try {
@@ -19,9 +18,6 @@ async function getCharacterNames() {
       nextPage = next; // Uppdatera "nextPage" till länken till nästa sida
     }
 
-    console.log("Antal namn:", allCharacterNames.length); // Skriv ut antalet namn som hämtats
-    console.log(allCharacterNames); // Skriv ut alla namn
-
     return allCharacterNames; // Returnera arrayen med alla namn
   } catch (error) {
     console.error(error); // Skriv ut eventuella fel som uppstår
@@ -29,24 +25,29 @@ async function getCharacterNames() {
   }
 }
 
-// Funktion för att hämta och spara data
-async function fetchData() {
+// Funktion för att hämta en specifik karaktärs information baserat på namnet
+async function fetchCharacterData(characterName) {
   try {
-    const allCharacterNames = await getCharacterNames(); // Hämta namnen från en extern API
-
-    // Skapa en lista med objekt för att spara i databasen
-    const characters = allCharacterNames.map((name) => ({ name }));
-
-    // Spara karaktärerna i databasen
-    await Character.insertMany(characters);
-
-    console.log("Data sparad i databasen!");
+    const response = await axios.get(
+      `https://swapi.dev/api/people/?search=${characterName}`
+    );
+    if (response.data.results.length === 0) {
+      throw new Error(
+        `No Star Wars characters found matching "${characterName}"`
+      );
+    }
+    return response.data.results[0]; // Returnera den första matchningen
   } catch (error) {
-    console.error("Fel vid hämtning och sparning av data:", error);
+    console.error(
+      `Error fetching data for character "${characterName}":`,
+      error
+    );
+    throw error;
   }
 }
 
-module.exports = { getCharacterNames, fetchData }; // Exportera funktionen för att kunna använda den i andra filer
+// Exportera funktionen
+module.exports = { getCharacterNames, fetchCharacterData };
 
 // Swapi.js SFörklaringen av koden:
 // - Axios importeras för att använda för HTTP-anrop.

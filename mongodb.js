@@ -1,11 +1,10 @@
 // In charge of mongdb connection
 const mongoose = require("mongoose");
-const getCharacterNames = require("./swapi");
 
-// Anslut till MongoDB-databasen
+// Anslut till MongoDB-databasen | gör säkrare så mina uppgifter inte syns på github
 mongoose
   .connect(
-    "mongodb+srv://filipnyman7:filipnyman7@philscluster0.5wvjvwb.mongodb.net/mydatabase?retryWrites=true&w=majority",
+    "mongodb://filipnyman7:filipnyman7@philscluster0.5wvjvwb.mongodb.net/mydatabase?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -13,37 +12,35 @@ mongoose
   )
   .then(() => {
     console.log("Anslutning till databasen lyckades!");
-    // Kör funktionen för att hämta och spara data
-    fetchData();
   })
   .catch((error) => {
     console.error("Anslutningsfel till databasen:", error);
   });
 
-// Skapa en referens till databasen
-const db = mongoose.connection;
-
-// Hantera fel vid anslutning
-db.on("error", (error) => {
-  console.error("MongoDB connection error:", error);
-});
-
-// Hantera framgångsrik anslutning
-db.once("open", () => {
-  console.log("MongoDB connection successful");
-});
-
 // Skapa ett schema för karaktärer
 const characterSchema = new mongoose.Schema({
   name: String,
+  // Lägg till fler fält här om det behövs
 });
 
 // Skapa en modell baserad på schemat
 const Character = mongoose.model("Character", characterSchema);
 
+async function saveCharacterToDatabase(characterData) {
+  // Skapa en ny instans av Character med den mottagna karaktärsinformationen
+  const character = new Character(characterData);
+
+  // Försök att spara karaktären i databasen
+  try {
+    await character.save();
+    console.log(`Character "${characterData.name}" saved to the database!`);
+  } catch (error) {
+    console.error("Error saving character to the database:", error);
+  }
+}
 module.exports = {
-  db,
   Character,
+  saveCharacterToDatabase,
 };
 
 // mongodb.js Förklaring av kod:

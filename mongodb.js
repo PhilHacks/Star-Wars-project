@@ -1,33 +1,32 @@
 // In charge of mongdb connection
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // Anslut till MongoDB-databasen | gör säkrare så mina uppgifter inte syns på github
 mongoose
   .connect(
-    "mongodb://filipnyman7:filipnyman7@philscluster0.5wvjvwb.mongodb.net/mydatabase?retryWrites=true&w=majority",
+    "mongodb+srv://filipnyman7:filipnyman7@philscluster0.5wvjvwb.mongodb.net/mydatabase?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     }
   )
   .then(() => {
-    console.log("Anslutning till databasen lyckades!");
+    console.log("MongoDB connected");
   })
-  .catch((error) => {
-    console.error("Anslutningsfel till databasen:", error);
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
   });
 
-// Skapa ett schema för karaktärer
 const characterSchema = new mongoose.Schema({
   name: String,
-  // Lägg till fler fält här om det behövs
+  index: { type: Number, required: true },
 });
 
-// Skapa en modell baserad på schemat
 const Character = mongoose.model("Character", characterSchema);
 
-async function saveCharacterToDatabase(characterData) {
-  // Skapa en ny instans av Character med den mottagna karaktärsinformationen
+export async function saveCharacterToDatabase(characterData) {
+  const charactersCount = await Character.countDocuments();
+  characterData.index = charactersCount; // Set the index property
   const character = new Character(characterData);
 
   // Försök att spara karaktären i databasen
@@ -38,10 +37,6 @@ async function saveCharacterToDatabase(characterData) {
     console.error("Error saving character to the database:", error);
   }
 }
-module.exports = {
-  Character,
-  saveCharacterToDatabase,
-};
 
 // mongodb.js Förklaring av kod:
 // - Mongoose och getCharacterNames importeras.

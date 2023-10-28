@@ -24,31 +24,68 @@ const characterSchema = new mongoose.Schema({
 
 const Character = mongoose.model("Character", characterSchema);
 
-export async function saveCharacterToDatabase(characterData) {
-  const charactersCount = await Character.countDocuments();
-  characterData.index = charactersCount; // Set the index property
-  const character = new Character(characterData);
+export async function updateCharacterIndexes() {
+  const characters = await Character.find().sort({ index: 1 });
 
-  // Försök att spara karaktären i databasen
-  try {
-    await character.save();
-    console.log(`Character "${characterData.name}" saved to the database!`);
-  } catch (error) {
-    console.error("Error saving character to the database:", error);
+  for (let i = 0; i < characters.length; i++) {
+    const character = characters[i];
+    if (character.index !== i) {
+      character.index = i;
+      await character.save();
+    }
   }
 }
 
-// mongodb.js Förklaring av kod:
-// - Mongoose och getCharacterNames importeras.
-// - Anslutning skapas till en MongoDB-databas med angiven URL och inställningar.
-// - Om anslutningen lyckas, skrivs en framgångsmeddelande ut och fetchData-funktionen körs.
-// - Om anslutningen misslyckas, skrivs ett felmeddelande ut.
-// - Ett schema för karaktärer skapas med ett namnfält.
-// - En modell skapas baserad på schemat.
-// - Funktionen fetchData används för att hämta karaktärernas namn från en extern API och spara dem i databasen.
-// - Namnen omvandlas till ett listobjektformat.
-// - Karaktärerna sparas i databasen med hjälp av Character-modellen och insertMany.
-// - Om det uppstår fel under hämtning och sparning av data, skrivs ett felmeddelande ut.
-// - Modellen Character exporteras för att kunna användas i andra filer.
+export async function sortCharacterIndexes() {
+  return await Character.find().sort({ index: 1 });
+}
 
-// .
+export async function saveCharacter(name) {
+  const character = new Character({ name });
+  const charactersCount = await Character.countDocuments();
+  character.index = charactersCount;
+  try {
+    await character.save();
+    return character;
+  } catch (error) {
+    console.error("Error saving character to the database:", error);
+    return null;
+  }
+}
+
+export async function removeCharacter(name) {
+  try {
+    const result = await Character.deleteOne({ name });
+    return result;
+  } catch (error) {
+    console.error("Error removing character:", error);
+    return null;
+  }
+}
+
+export async function updateMultipleCharacterIndexes(query, update) {
+  try {
+    await Character.updateMany(query, update);
+  } catch (error) {
+    console.error("Error updating multiple character indexes:", error);
+  }
+}
+
+export async function findCharacterByName(name) {
+  try {
+    const character = await Character.findOne({ name });
+    return character;
+  } catch (error) {
+    console.error("Error finding character:", error);
+    return null;
+  }
+}
+
+export async function closeDatabaseConnection() {
+  try {
+    await mongoose.connection.close();
+    console.log("MongoDB connection closed.");
+  } catch (error) {
+    console.error("Error closing MongoDB connection:", error);
+  }
+}

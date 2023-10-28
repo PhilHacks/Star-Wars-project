@@ -2,20 +2,20 @@
 import mongoose from "mongoose";
 
 // Anslut till MongoDB-databasen | gör säkrare så mina uppgifter inte syns på github
-mongoose
-  .connect(
-    "mongodb+srv://filipnyman7:filipnyman7@philscluster0.5wvjvwb.mongodb.net/mydatabase?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
-  .then(() => {
+export async function connectToDatabase() {
+  try {
+    await mongoose.connect(
+      "mongodb+srv://filipnyman7:filipnyman7@philscluster0.5wvjvwb.mongodb.net/mydatabase?retryWrites=true&w=majority",
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    );
     console.log("MongoDB connected");
-  })
-  .catch((err) => {
-    console.error("MongoDB connection error:", err);
-  });
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+  }
+}
 
 const characterSchema = new mongoose.Schema({
   name: String,

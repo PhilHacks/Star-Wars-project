@@ -2,7 +2,7 @@ import promptSync from "prompt-sync";
 const prompt = promptSync();
 
 import { printMessage } from "./ui.js";
-import { closeDatabaseConnection } from "./mongodb.js";
+import { connectToDatabase, closeDatabaseConnection } from "./mongodb.js";
 import {
   addCharacter,
   removeCharacterOperation,
@@ -12,10 +12,12 @@ import {
 
 async function main() {
   try {
+    await connectToDatabase(); // Ensure MongoDB connection before proceeding
+
     let operation;
     do {
       operation = prompt(
-        "Enter operation (add, remove, move, list, exit): "
+        "Enter the operation you want to do (add, remove, move, list, exit): "
       ).toLowerCase();
       switch (operation) {
         case "add":

@@ -35,8 +35,8 @@ export function promptRemoveMultipleCharacters(count) {
 }
 
 export function printCharacters(characters) {
-  characters.foreach((character) => {
-    console.log(`Index: ${character.index} Name: ${character.index} `);
+  characters.forEach((character) => {
+    console.log(`Index: ${character.index} Name: ${character.name} `);
   });
 }
 

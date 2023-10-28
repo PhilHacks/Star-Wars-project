@@ -1,33 +1,47 @@
-//Huvudfil där allt körs ifrån.
+import promptSync from "prompt-sync";
+const prompt = promptSync();
+
+import { printMessage } from "./ui.js";
+import { closeDatabaseConnection } from "./mongodb.js";
 import {
-  promptAddCharacter,
-  promptAddAnotherCharacter,
-  promptRemoveCharacter,
-  promptAddSeveralCharacters,
-  promptMoveCharacter,
-  promptRemoveSeveralCharacters,
-  printCharacters,
-} from "./ui.js";
-import { fetchCharacterData } from "./swapi.js";
-import { saveCharacterToDatabase } from "./mongodb.js";
+  addCharacter,
+  removeCharacterOperation,
+  moveCharacterOperation,
+  listCharacters,
+} from "./handler.js";
 
 async function main() {
   try {
-    // Ask the user which Star Wars character they want to add
-    const characterName = promptAddCharacter();
+    let operation;
+    do {
+      operation = prompt(
+        "Enter operation (add, remove, move, list, exit): "
+      ).toLowerCase();
+      switch (operation) {
+        case "add":
+          await addCharacter();
+          break;
+        case "remove":
+          await removeCharacterOperation();
+          break;
+        case "move":
+          await moveCharacterOperation();
+          break;
+        case "list":
+          await listCharacters();
+          break;
+        case "exit":
+          console.log("Exiting application...");
+          break;
+        default:
+          console.log("Invalid operation. Try again.");
+      }
+    } while (operation !== "exit");
 
-    // Fetch character information from SWAPI
-    const characterData = await fetchCharacterData(characterName);
-
-    // Save character information to MongoDB
-    if (characterData) {
-      await saveCharacterToDatabase(characterData);
-      console.log(
-        `Character "${characterName}" has been added to the database!`
-      );
-    }
+    await closeDatabaseConnection();
   } catch (error) {
     console.error("Error in main application:", error);
+    await closeDatabaseConnection();
   }
 }
 

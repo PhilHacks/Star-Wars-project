@@ -41,6 +41,7 @@ export async function moveCharacterOperation() {
   } else {
     printMessage(`Character "${nameToMove}" was not found.`);
   }
+  await updateCharacterIndexes();
 }
 
 export async function listCharacters() {
@@ -59,6 +60,7 @@ export async function addCharacter() {
   } else {
     printMessage(`Character "${characterName}" was not found.`);
   }
+  await updateCharacterIndexes();
 }
 
 // Function to handle removing a character
@@ -70,4 +72,5 @@ export async function removeCharacterOperation() {
       ? `Character "${nameToRemove}" has been removed.`
       : `Character "${nameToRemove}" was not found.`
   );
+  await updateCharacterIndexes();
 }

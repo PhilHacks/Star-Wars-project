@@ -13,12 +13,12 @@ const runApp = async () => {
   try {
     await connectToMongoDb();
 
-    let operation;
+    let userCommand;
     do {
-      operation = prompt(
+      userCommand = prompt(
         "Enter the operation you want to do (add, remove, move, list, exit): "
       ).toLowerCase();
-      switch (operation) {
+      switch (userCommand) {
         case "add":
           await addCharacter();
           break;
@@ -37,7 +37,7 @@ const runApp = async () => {
         default:
           console.log("Invalid operation. Try again.");
       }
-    } while (operation !== "exit");
+    } while (userCommand !== "exit");
 
     await closeConnectionToMongoDb();
   } catch (error) {

@@ -1,7 +1,6 @@
 import promptSync from "prompt-sync";
 const prompt = promptSync();
 
-import { printMessage } from "./ui.js";
 import { connectToDatabase, closeDatabaseConnection } from "./mongodb.js";
 import {
   addCharacter,

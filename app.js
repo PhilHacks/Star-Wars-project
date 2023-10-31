@@ -1,7 +1,7 @@
 import promptSync from "prompt-sync";
 const prompt = promptSync();
 
-import { connectToMongoDb, closeDatabaseConnection } from "./mongodb.js";
+import { connectToMongoDb, closeConnectionToMongoDb } from "./mongodb.js";
 import {
   addCharacter,
   removeCharacterOperation,
@@ -39,10 +39,10 @@ const runApp = async () => {
       }
     } while (operation !== "exit");
 
-    await closeDatabaseConnection();
+    await closeConnectionToMongoDb();
   } catch (error) {
     console.error("Error in main application:", error);
-    await closeDatabaseConnection();
+    await closeConnectionToMongoDb();
   }
 };
 

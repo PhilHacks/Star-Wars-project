@@ -80,7 +80,7 @@ export async function findCharacterByName(name) {
   }
 }
 
-export async function closeDatabaseConnection() {
+export async function closeConnectionToMongoDb() {
   try {
     await mongoose.connection.close();
     console.log("MongoDB connection closed.");

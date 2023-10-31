@@ -11,7 +11,7 @@ import {
 
 const main = async () => {
   try {
-    await connectToDatabase(); // Ensure MongoDB connection before proceeding
+    await connectToDatabase();
 
     let operation;
     do {

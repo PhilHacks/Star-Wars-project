@@ -3,10 +3,10 @@ const prompt = promptSync();
 
 import { connectToMongoDb, closeConnectionToMongoDb } from "./mongodb.js";
 import {
-  addCharacter,
-  removeCharacterOperation,
-  moveCharacterOperation,
-  listCharacters,
+  addStarWarsCharacter,
+  removeStarWarsCharacter,
+  moveStarWarsCharacter,
+  listStarWarsCharacters,
 } from "./handler.js";
 
 const runApp = async () => {
@@ -20,16 +20,16 @@ const runApp = async () => {
       ).toLowerCase();
       switch (userCommand) {
         case "add":
-          await addCharacter();
+          await addStarWarsCharacter();
           break;
         case "remove":
-          await removeCharacterOperation();
+          await removeStarWarsCharacter();
           break;
         case "move":
-          await moveCharacterOperation();
+          await moveStarWarsCharacter();
           break;
         case "list":
-          await listCharacters();
+          await listStarWarsCharacters();
           break;
         case "exit":
           console.log("Exiting application...");

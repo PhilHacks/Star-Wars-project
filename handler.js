@@ -17,7 +17,7 @@ import {
   sortCharacterIndexes,
 } from "./mongodb.js";
 
-export async function addCharacter() {
+export async function addStarWarsCharacter() {
   const characterName = promptAddCharacter();
   const characterData = await fetchAndCreateCharacter(characterName);
   if (characterData) {
@@ -32,7 +32,7 @@ export async function addCharacter() {
 }
 
 // Function to handle removing a character
-export async function removeCharacterOperation() {
+export async function removeStarWarsCharacter() {
   const nameToRemove = promptRemoveCharacter();
   const removeResult = await removeCharacter(nameToRemove);
   printMessage(
@@ -43,7 +43,7 @@ export async function removeCharacterOperation() {
   await updateCharacterIndexes();
 }
 
-export async function moveCharacterOperation() {
+export async function moveStarWarsCharacter() {
   const [nameToMove, toNewIndex] = promptMoveCharacter();
   const characterToMove = await findCharacterByName(nameToMove);
   if (characterToMove) {
@@ -70,7 +70,7 @@ export async function moveCharacterOperation() {
   await updateCharacterIndexes();
 }
 
-export async function listCharacters() {
+export async function listStarWarsCharacters() {
   const sortedCharacters = await sortCharacterIndexes();
   printCharacters(sortedCharacters);
 }

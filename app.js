@@ -1,7 +1,7 @@
 import promptSync from "prompt-sync";
 const prompt = promptSync();
 
-import { connectToDatabase, closeDatabaseConnection } from "./mongodb.js";
+import { connectToMongoDb, closeDatabaseConnection } from "./mongodb.js";
 import {
   addCharacter,
   removeCharacterOperation,
@@ -11,7 +11,7 @@ import {
 
 const main = async () => {
   try {
-    await connectToDatabase();
+    await connectToMongoDb();
 
     let operation;
     do {

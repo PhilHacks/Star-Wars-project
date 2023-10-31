@@ -4,7 +4,7 @@ dotenv.config();
 import mongoose from "mongoose";
 
 // Anslut till MongoDB-databasen | gör säkrare så mina uppgifter inte syns på github
-export async function connectToDatabase() {
+export async function connectToMongoDb() {
   try {
     await mongoose.connect(process.env.URI, {
       useNewUrlParser: true,

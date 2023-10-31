@@ -9,7 +9,7 @@ import {
   listCharacters,
 } from "./handler.js";
 
-async function main() {
+const main = async () => {
   try {
     await connectToDatabase(); // Ensure MongoDB connection before proceeding
 
@@ -44,6 +44,6 @@ async function main() {
     console.error("Error in main application:", error);
     await closeDatabaseConnection();
   }
-}
+};
 
 main();

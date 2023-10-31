@@ -9,7 +9,7 @@ import {
   listCharacters,
 } from "./handler.js";
 
-const main = async () => {
+const runApp = async () => {
   try {
     await connectToMongoDb();
 
@@ -46,4 +46,4 @@ const main = async () => {
   }
 };
 
-main();
+runApp();

@@ -11,6 +11,7 @@ import {
   removeMultipleCharacters,
 } from "./handler.js";
 
+// Object mapping user input strings to the corresponding functions
 const userCommandObj = {
   "add": addStarWarsCharacter,
   "remove": removeStarWarsCharacter,
@@ -20,6 +21,7 @@ const userCommandObj = {
   "remove many": removeMultipleCharacters,
 };
 
+// Main function to execute user commands until 'exit' is entered
 const runApp = async () => {
   try {
     await connectToMongoDb();

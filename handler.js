@@ -2,6 +2,8 @@ import {
   promptAddCharacter,
   promptRemoveCharacter,
   promptMoveCharacter,
+  promptAddMultipleCharacters,
+  promptRemoveMultipleCharacters,
   printCharacters,
   printMessage,
 } from "./ui.js";
@@ -69,6 +71,29 @@ export async function moveStarWarsCharacter() {
   }
   await updateCharacterIndexes();
 }
+
+export const addMultipleCharacters = async (count) => {
+  const namesArray = promptAddMultipleCharacters(count);
+  const charactersData = await fetchMultipleCharacters(namesArray);
+
+  for (const characterData of charactersData) {
+    await saveCharacter(characterData.name);
+  }
+  const characterNames = charactersData
+    .map((character) => character.name)
+    .join(", ");
+  printMessage(`Characters "${characterNames}" have been added.`);
+
+  await updateCharacterIndexes();
+};
+
+export const removeMultipleCharacters = async (count) => {
+  const namesArray = promptRemoveMultipleCharacters(count);
+  for (const name of namesArray) {
+    await removeCharacter(name);
+  }
+  await updateCharacterIndexes();
+};
 
 export async function listStarWarsCharacters() {
   const sortedCharacters = await sortCharacterIndexes();

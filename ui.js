@@ -8,6 +8,7 @@ export const promptRemoveCharacter = () =>
   prompt("Enter the name of the character to delete: ");
 
 
+// Prompts user for input to move characters within db
 const promptCharacterName = () => prompt("Enter the name of the character to move: ");
 const promptNewIndex = () => prompt("Enter the new index for the character: ");
 

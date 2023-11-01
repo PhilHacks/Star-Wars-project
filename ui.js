@@ -1,5 +1,4 @@
 import promptSync from "prompt-sync";
-
 const prompt = promptSync();
 
 export const promptAddCharacter = () =>
@@ -8,9 +7,13 @@ export const promptAddCharacter = () =>
 export const promptRemoveCharacter = () =>
   prompt("Enter the name of the character to delete: ");
 
+
+const promptCharacterName = () => prompt("Enter the name of the character to move: ");
+const promptNewIndex = () => prompt("Enter the new index for the character: ");
+
 export const promptMoveCharacter = () => {
-  const name = prompt("Enter the name of the character to move: ");
-  const toNewIndex = prompt("Enter the new index for the character: ");
+  const name = promptCharacterName();
+  const toNewIndex = promptNewIndex();
   return [name, toNewIndex];
 };
 

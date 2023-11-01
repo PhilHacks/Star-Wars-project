@@ -7,38 +7,32 @@ import {
   removeStarWarsCharacter,
   moveStarWarsCharacter,
   listStarWarsCharacters,
+  addMultipleCharacters,
+  removeMultipleCharacters,
 } from "./handler.js";
+
+const userCommandObj = {
+  "add": addStarWarsCharacter,
+  "remove": removeStarWarsCharacter,
+  "move": moveStarWarsCharacter,
+  "list": listStarWarsCharacters,
+  "add many": addMultipleCharacters,
+  "remove many": removeMultipleCharacters,
+};
 
 const runApp = async () => {
   try {
     await connectToMongoDb();
-
     let userCommand;
     do {
-      userCommand = prompt(
-        "Enter the operation you want to do (add, remove, move, list, exit): "
+      userCommand = prompt("Enter the operation you want to do (add, remove, move, list, add many, remove many, exit): "
       ).toLowerCase();
-      switch (userCommand) {
-        case "add":
-          await addStarWarsCharacter();
-          break;
-        case "remove":
-          await removeStarWarsCharacter();
-          break;
-        case "move":
-          await moveStarWarsCharacter();
-          break;
-        case "list":
-          await listStarWarsCharacters();
-          break;
-        case "exit":
-          console.log("Exiting application...");
-          break;
-        default:
-          console.log("Invalid operation. Try again.");
+      if (userCommandObj[userCommand]) {
+        await userCommandObj[userCommand]();
+      } else if (userCommand !== "exit") {
+        console.log("Invalid operation. Try again.");
       }
     } while (userCommand !== "exit");
-
     await closeConnectionToMongoDb();
   } catch (error) {
     console.error("Error in main application:", error);

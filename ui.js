@@ -2,13 +2,11 @@ import promptSync from "prompt-sync";
 
 const prompt = promptSync();
 
-export const promptAddCharacter = () => {
-  return prompt("Add Star Wars character to list: ");
-};
+export const promptAddCharacter = () =>
+  prompt("Add Star Wars character to list: ");
 
-export const promptRemoveCharacter = () => {
-  return prompt("Enter the name of the character to delete: ");
-};
+export const promptRemoveCharacter = () =>
+  prompt("Enter the name of the character to delete: ");
 
 export const promptMoveCharacter = () => {
   const name = prompt("Enter the name of the character to move: ");
@@ -40,6 +38,4 @@ export const printCharacters = (characters) => {
   });
 };
 
-export const printMessage = (message) => {
-  console.log(message);
-};
+export const printMessage = (message) => console.log(message);

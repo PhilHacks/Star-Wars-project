@@ -8,15 +8,14 @@ export const promptRemoveCharacter = () =>
   prompt("Enter the name of the character to delete: ");
 
 
-// Prompts user for input to move characters within db
-const promptCharacterName = () => prompt("Enter the name of the character to move: ");
-const promptNewIndex = () => prompt("Enter the new index for the character: ");
-
 export const promptMoveCharacter = () => {
   const name = promptCharacterName();
   const toNewIndex = promptNewIndex();
   return [name, toNewIndex];
 };
+const promptCharacterName = () => prompt("Enter the name of the character to move: ");
+const promptNewIndex = () => prompt("Enter the new index for the character: ");
+
 
 export const promptAddMultipleCharacters = (count) => {
   const namesArray = [];

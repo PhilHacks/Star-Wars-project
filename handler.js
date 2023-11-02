@@ -20,17 +20,21 @@ import {
 } from "./mongodb.js";
 
 export async function addStarWarsCharacter() {
-  const characterName = promptAddCharacter();
-  const characterData = await fetchAndCreateCharacter(characterName);
-  if (characterData) {
-    await saveCharacter(characterData.name);
-    printMessage(
-      `Character "${characterData.name}" has been added to the database!`
-    );
-  } else {
-    printMessage(`Character "${characterName}" was not found.`);
+  try {
+    const characterName = promptAddCharacter();
+    const characterData = await fetchAndCreateCharacter(characterName);
+    if (characterData) {
+      await saveCharacter(characterData.name);
+      printMessage(
+        `Character "${characterData.name}" has been added to the database!`
+      );
+    } else {
+      printMessage(`Character "${characterName}" was not found.`);
+    }
+    await updateCharacterIndexes();
+  } catch (error) {
+    console.error("Error adding Star Wars character:", error);
   }
-  await updateCharacterIndexes();
 }
 
 // Function to handle removing a character
@@ -45,20 +49,20 @@ export async function removeStarWarsCharacter() {
   await updateCharacterIndexes();
 }
 
-export const moveStarWarsCharacter = async ()  => {
+export const moveStarWarsCharacter = async () => {
   const [nameToMove, toNewIndex] = promptMoveCharacter(); // get name from user
   const characterToMove = await getCharacterToMove(nameToMove);
-  if (characterToMove){
+  if (characterToMove) {
     await moveCharacterToNewIndex(characterToMove, toNewIndex);
   } else {
-    printMessage(`Character "${nameToMove}" was not found`)
+    printMessage(`Character "${nameToMove}" was not found`);
   }
-}
+};
 
 export const getCharacterToMove = async (name) => {
   const characterToMove = await findCharacterByName(name);
-  return characterToMove; 
-}
+  return characterToMove;
+};
 
 export const moveCharacterToNewIndex = async (characterToMove, newIndexInt) => {
   const query = {

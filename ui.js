@@ -13,6 +13,7 @@ export const promptMoveCharacter = () => {
   const toNewIndex = promptNewIndex();
   return [name, toNewIndex];
 };
+
 const promptCharacterName = () => prompt("Enter the name of the character to move: ");
 const promptNewIndex = () => prompt("Enter the new index for the character: ");
 

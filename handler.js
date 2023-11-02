@@ -14,7 +14,7 @@ import {
   saveCharacter,
   removeCharacter,
   findCharacterByName,
-  updateMultipleCharacterIndexes,
+  moveCharacterToNewIndex,
   updateCharacterIndexes,
   sortCharacterIndexes,
 } from "./mongodb.js";
@@ -83,41 +83,17 @@ export const getCharacterToMove = async (name) => {
   }
 };
 
-//Refactor for simplicity and readability
-export const moveCharacterToNewIndex = async (characterToMove, newIndexInt) => {
-  try {
-    const query = {
-      index: {
-        $gte: Math.min(characterToMove.index, newIndexInt),
-        $lte: Math.max(characterToMove.index, newIndexInt),
-      },
-    };
-    const update = {
-      $inc: { index: characterToMove.index < newIndexInt ? -1 : 1 },
-    };
-    await updateMultipleCharacterIndexes(query, update);
-    characterToMove.index = newIndexInt;
-    await characterToMove.save();
-    await updateCharacterIndexes();
-    printMessage(
-      `Character "${characterToMove.name}" moved successfully to index ${newIndexInt}`
-    );
-  } catch (error) {
-    console.error("Error moving character to new index:", error);
-  }
-};
-
 export const addMultipleCharacters = async (count) => {
   try {
-    const namesArray = promptAddMultipleCharacters(count);
-    const charactersData = await fetchMultipleCharacters(namesArray);
+    const characterNames = promptAddMultipleCharacters(count);
+    const charactersData = await fetchMultipleCharacters(characterNames);
     for (const characterData of charactersData) {
       await saveCharacter(characterData.name);
     }
-    const characterNames = charactersData
+    const nameList = charactersData
       .map((character) => character.name)
       .join(", ");
-    printMessage(`Characters "${characterNames}" have been added.`);
+    printMessage(`Characters "${nameList}" have been added.`);
     await updateCharacterIndexes();
   } catch (error) {
     console.error("Error adding multiple characters:", error);
@@ -126,8 +102,8 @@ export const addMultipleCharacters = async (count) => {
 
 export const removeMultipleCharacters = async (count) => {
   try {
-    const namesArray = promptRemoveMultipleCharacters(count);
-    for (const name of namesArray) {
+    const characterNames = promptRemoveMultipleCharacters(count);
+    for (const name of characterNames) {
       await removeCharacter(name);
     }
     await updateCharacterIndexes();

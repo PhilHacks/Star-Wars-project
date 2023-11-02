@@ -3,6 +3,8 @@ dotenv.config();
 
 import mongoose from "mongoose";
 
+import { printMessage } from "./ui.js";
+
 // Anslut till MongoDB-databasen | gör säkrare så mina uppgifter inte syns på github
 export async function connectToMongoDb() {
   try {
@@ -69,6 +71,29 @@ export async function updateMultipleCharacterIndexes(query, update) {
     console.error("Error updating multiple character indexes:", error);
   }
 }
+
+export const moveCharacterToNewIndex = async (characterToMove, newIndexInt) => {
+  try {
+    const query = {
+      index: {
+        $gte: Math.min(characterToMove.index, newIndexInt),
+        $lte: Math.max(characterToMove.index, newIndexInt),
+      },
+    };
+    const update = {
+      $inc: { index: characterToMove.index < newIndexInt ? -1 : 1 },
+    };
+    await updateMultipleCharacterIndexes(query, update);
+    characterToMove.index = newIndexInt;
+    await characterToMove.save();
+    await updateCharacterIndexes();
+    printMessage(
+      `Character "${characterToMove.name}" moved successfully to index ${newIndexInt}`
+    );
+  } catch (error) {
+    console.error("Error moving character to new index:", error);
+  }
+};
 
 export async function findCharacterByName(name) {
   try {

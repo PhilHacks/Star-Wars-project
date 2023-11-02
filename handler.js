@@ -19,7 +19,7 @@ import {
   sortCharacterIndexes,
 } from "./mongodb.js";
 
-export async function addStarWarsCharacter() {
+export const addStarWarsCharacter = async () => {
   try {
     const characterName = promptAddCharacter();
     const characterData = await fetchAndCreateCharacter(characterName);
@@ -35,9 +35,9 @@ export async function addStarWarsCharacter() {
   } catch (error) {
     console.error("Error adding Star Wars character:", error);
   }
-}
+};
 
-export async function removeStarWarsCharacter() {
+export const removeStarWarsCharacter = async () => {
   try {
     const nameToRemove = promptRemoveCharacter();
     const removeResult = await removeCharacter(nameToRemove);
@@ -50,11 +50,20 @@ export async function removeStarWarsCharacter() {
   } catch (error) {
     console.error("Error removing Star Wars character:", error);
   }
-}
+};
 
+//Refactor for simplicity and readability
 export const moveStarWarsCharacter = async () => {
   try {
     const [nameToMove, toNewIndex] = promptMoveCharacter(); // get name from user
+    await handleCharacterMovement(nameToMove, toNewIndex);
+  } catch (error) {
+    console.error("Error moving Star Wars character:", error);
+  }
+};
+
+export const handleCharacterMovement = async (nameToMove, toNewIndex) => {
+  try {
     const characterToMove = await getCharacterToMove(nameToMove);
     if (characterToMove) {
       await moveCharacterToNewIndex(characterToMove, toNewIndex);
@@ -62,7 +71,7 @@ export const moveStarWarsCharacter = async () => {
       printMessage(`Character "${nameToMove}" was not found`);
     }
   } catch (error) {
-    console.error("Error moving Star Wars character:", error);
+    console.error("Error handle character movement:", error);
   }
 };
 
@@ -75,6 +84,7 @@ export const getCharacterToMove = async (name) => {
   }
 };
 
+//Refactor for simplicity and readability
 export const moveCharacterToNewIndex = async (characterToMove, newIndexInt) => {
   try {
     const query = {
@@ -127,11 +137,11 @@ export const removeMultipleCharacters = async (count) => {
   }
 };
 
-export async function listStarWarsCharacters() {
+export const listStarWarsCharacters = async () => {
   try {
     const sortedCharacters = await sortCharacterIndexes();
     printCharacters(sortedCharacters);
   } catch (error) {
     console.error("Error listing Star Wars characters:", error);
   }
-}
+};

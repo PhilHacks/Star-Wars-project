@@ -37,7 +37,6 @@ export async function addStarWarsCharacter() {
   }
 }
 
-// Function to handle removing a character
 export async function removeStarWarsCharacter() {
   const nameToRemove = promptRemoveCharacter();
   const removeResult = await removeCharacter(nameToRemove);

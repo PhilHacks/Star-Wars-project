@@ -38,74 +38,100 @@ export async function addStarWarsCharacter() {
 }
 
 export async function removeStarWarsCharacter() {
-  const nameToRemove = promptRemoveCharacter();
-  const removeResult = await removeCharacter(nameToRemove);
-  printMessage(
-    removeResult
-      ? `Character "${nameToRemove}" has been removed.`
-      : `Character "${nameToRemove}" was not found.`
-  );
-  await updateCharacterIndexes();
+  try {
+    const nameToRemove = promptRemoveCharacter();
+    const removeResult = await removeCharacter(nameToRemove);
+    printMessage(
+      removeResult
+        ? `Character "${nameToRemove}" has been removed.`
+        : `Character "${nameToRemove}" was not found.`
+    );
+    await updateCharacterIndexes();
+  } catch (error) {
+    console.error("Error removing Star Wars character:", error);
+  }
 }
 
 export const moveStarWarsCharacter = async () => {
-  const [nameToMove, toNewIndex] = promptMoveCharacter(); // get name from user
-  const characterToMove = await getCharacterToMove(nameToMove);
-  if (characterToMove) {
-    await moveCharacterToNewIndex(characterToMove, toNewIndex);
-  } else {
-    printMessage(`Character "${nameToMove}" was not found`);
+  try {
+    const [nameToMove, toNewIndex] = promptMoveCharacter(); // get name from user
+    const characterToMove = await getCharacterToMove(nameToMove);
+    if (characterToMove) {
+      await moveCharacterToNewIndex(characterToMove, toNewIndex);
+    } else {
+      printMessage(`Character "${nameToMove}" was not found`);
+    }
+  } catch (error) {
+    console.error("Error moving Star Wars character:", error);
   }
 };
 
 export const getCharacterToMove = async (name) => {
-  const characterToMove = await findCharacterByName(name);
-  return characterToMove;
+  try {
+    const characterToMove = await findCharacterByName(name);
+    return characterToMove;
+  } catch (error) {
+    console.error("Error getting character to move:", error);
+  }
 };
 
 export const moveCharacterToNewIndex = async (characterToMove, newIndexInt) => {
-  const query = {
-    index: {
-      $gte: Math.min(characterToMove.index, newIndexInt),
-      $lte: Math.max(characterToMove.index, newIndexInt),
-    },
-  };
-  const update = {
-    $inc: { index: characterToMove.index < newIndexInt ? -1 : 1 },
-  };
-  await updateMultipleCharacterIndexes(query, update);
-  characterToMove.index = newIndexInt;
-  await characterToMove.save();
-  await updateCharacterIndexes();
-  printMessage(
-    `Character "${characterToMove.name}" moved successfully to index ${newIndexInt}`
-  );
+  try {
+    const query = {
+      index: {
+        $gte: Math.min(characterToMove.index, newIndexInt),
+        $lte: Math.max(characterToMove.index, newIndexInt),
+      },
+    };
+    const update = {
+      $inc: { index: characterToMove.index < newIndexInt ? -1 : 1 },
+    };
+    await updateMultipleCharacterIndexes(query, update);
+    characterToMove.index = newIndexInt;
+    await characterToMove.save();
+    await updateCharacterIndexes();
+    printMessage(
+      `Character "${characterToMove.name}" moved successfully to index ${newIndexInt}`
+    );
+  } catch (error) {
+    console.error("Error moving character to new index:", error);
+  }
 };
 
 export const addMultipleCharacters = async (count) => {
-  const namesArray = promptAddMultipleCharacters(count);
-  const charactersData = await fetchMultipleCharacters(namesArray);
-
-  for (const characterData of charactersData) {
-    await saveCharacter(characterData.name);
+  try {
+    const namesArray = promptAddMultipleCharacters(count);
+    const charactersData = await fetchMultipleCharacters(namesArray);
+    for (const characterData of charactersData) {
+      await saveCharacter(characterData.name);
+    }
+    const characterNames = charactersData
+      .map((character) => character.name)
+      .join(", ");
+    printMessage(`Characters "${characterNames}" have been added.`);
+    await updateCharacterIndexes();
+  } catch (error) {
+    console.error("Error adding multiple characters:", error);
   }
-  const characterNames = charactersData
-    .map((character) => character.name)
-    .join(", ");
-  printMessage(`Characters "${characterNames}" have been added.`);
-
-  await updateCharacterIndexes();
 };
 
 export const removeMultipleCharacters = async (count) => {
-  const namesArray = promptRemoveMultipleCharacters(count);
-  for (const name of namesArray) {
-    await removeCharacter(name);
+  try {
+    const namesArray = promptRemoveMultipleCharacters(count);
+    for (const name of namesArray) {
+      await removeCharacter(name);
+    }
+    await updateCharacterIndexes();
+  } catch (error) {
+    console.error("Error removing multiple characters:", error);
   }
-  await updateCharacterIndexes();
 };
 
 export async function listStarWarsCharacters() {
-  const sortedCharacters = await sortCharacterIndexes();
-  printCharacters(sortedCharacters);
+  try {
+    const sortedCharacters = await sortCharacterIndexes();
+    printCharacters(sortedCharacters);
+  } catch (error) {
+    console.error("Error listing Star Wars characters:", error);
+  }
 }

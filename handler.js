@@ -52,7 +52,6 @@ export const removeStarWarsCharacter = async () => {
   }
 };
 
-//Refactor for simplicity and readability
 export const moveStarWarsCharacter = async () => {
   try {
     const [nameToMove, toNewIndex] = promptMoveCharacter(); // get name from user

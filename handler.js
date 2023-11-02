@@ -45,32 +45,39 @@ export async function removeStarWarsCharacter() {
   await updateCharacterIndexes();
 }
 
-export async function moveStarWarsCharacter() {
-  const [nameToMove, toNewIndex] = promptMoveCharacter();
-  const characterToMove = await findCharacterByName(nameToMove);
-  if (characterToMove) {
-    const newIndexInt = parseInt(toNewIndex);
-    const query = {
-      index: {
-        $gte: Math.min(characterToMove.index, newIndexInt),
-        $lte: Math.max(characterToMove.index, newIndexInt),
-      },
-    };
-    const update = {
-      $inc: { index: characterToMove.index < newIndexInt ? -1 : 1 },
-    };
-    await updateMultipleCharacterIndexes(query, update);
-    characterToMove.index = newIndexInt;
-    await characterToMove.save();
-    await updateCharacterIndexes();
-    printMessage(
-      `Character "${nameToMove}" moved successfully to index ${toNewIndex}`
-    );
+export const moveStarWarsCharacter = async ()  => {
+  const [nameToMove, toNewIndex] = promptMoveCharacter(); // get name from user
+  const characterToMove = await getCharacterToMove(nameToMove);
+  if (characterToMove){
+    await moveCharacterToNewIndex(characterToMove, toNewIndex);
   } else {
-    printMessage(`Character "${nameToMove}" was not found.`);
+    printMessage(`Character "${nameToMove}" was not found`)
   }
-  await updateCharacterIndexes();
 }
+
+export const getCharacterToMove = async (name) => {
+  const characterToMove = await findCharacterByName(name);
+  return characterToMove; 
+}
+
+export const moveCharacterToNewIndex = async (characterToMove, newIndexInt) => {
+  const query = {
+    index: {
+      $gte: Math.min(characterToMove.index, newIndexInt),
+      $lte: Math.max(characterToMove.index, newIndexInt),
+    },
+  };
+  const update = {
+    $inc: { index: characterToMove.index < newIndexInt ? -1 : 1 },
+  };
+  await updateMultipleCharacterIndexes(query, update);
+  characterToMove.index = newIndexInt;
+  await characterToMove.save();
+  await updateCharacterIndexes();
+  printMessage(
+    `Character "${characterToMove.name}" moved successfully to index ${newIndexInt}`
+  );
+};
 
 export const addMultipleCharacters = async (count) => {
   const namesArray = promptAddMultipleCharacters(count);

@@ -8,7 +8,7 @@ import {
   printMessage,
 } from "./ui.js";
 
-import { fetchAndCreateCharacter, fetchMultipleCharacters } from "./swapi.js";
+import { fetchCharacterData, fetchMultipleCharacters } from "./swapi.js";
 
 import {
   saveCharacter,
@@ -31,7 +31,7 @@ export const saveAndUpdateDatabase = async (characterName) => {
 export const addStarWarsCharacter = async () => {
   try {
     const characterName = promptAddCharacter();
-    const characterData = await fetchAndCreateCharacter(characterName);
+    const characterData = await fetchCharacterData(characterName);
     if (characterData) {
       await saveAndUpdateDatabase(characterData.name);
       printMessage(

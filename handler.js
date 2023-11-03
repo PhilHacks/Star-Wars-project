@@ -20,7 +20,7 @@ import {
   moveCharacterToNewIndex,
   updateCharacterIndexes,
   sortCharacterIndexes,
-} from "./mongodb.js";
+} from "./mongoOperations.js";
 
 export const listStarWarsCharacters = async () => {
   try {

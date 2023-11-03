@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-export async function connectToMongoDb() {
+export const connectToMongoDb = async () => {
     try {
         await mongoose.connect(process.env.URI, {
             useNewUrlParser: true,
@@ -15,7 +15,7 @@ export async function connectToMongoDb() {
     }
 }
 
-export async function closeConnectionToMongoDb() {
+export const closeConnectionToMongoDb = async () => {
     try {
         await mongoose.connection.close();
         console.log('MongoDB connection closed.');

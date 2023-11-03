@@ -9,7 +9,7 @@ const characterSchema = new mongoose.Schema({
 
 const Character = mongoose.model("Character", characterSchema);
 
-export async function updateCharacterIndexes() {
+export const updateCharacterIndexes = async () =>{
   const characters = await Character.find().sort({ index: 1 });
 
   for (let i = 0; i < characters.length; i++) {
@@ -21,11 +21,11 @@ export async function updateCharacterIndexes() {
   }
 }
 
-export async function sortCharacterIndexes() {
+export const sortCharacterIndexes = async () => {
   return await Character.find().sort({ index: 1 });
 }
 
-export async function saveCharacter(name) {
+export const saveCharacter = async (name) => {
   const character = new Character({ name });
   const charactersCount = await Character.countDocuments();
   character.index = charactersCount;
@@ -38,7 +38,7 @@ export async function saveCharacter(name) {
   }
 }
 
-export async function removeCharacter(name) {
+export const removeCharacter = async (name) => {
   try {
     const result = await Character.deleteOne({ name });
     return result;
@@ -48,7 +48,7 @@ export async function removeCharacter(name) {
   }
 }
 
-export async function updateMultipleCharacterIndexes(query, update) {
+export const updateMultipleCharacterIndexes = async (query, update) => {
   try {
     await Character.updateMany(query, update);
   } catch (error) {
@@ -79,7 +79,7 @@ export const moveCharacterToNewIndex = async (characterToMove, newIndexInt) => {
   }
 };
 
-export async function findCharacterByName(name) {
+export const findCharacterByName = async (name) => {
   try {
     const character = await Character.findOne({ name });
     return character;

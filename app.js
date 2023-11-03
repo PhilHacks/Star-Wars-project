@@ -1,7 +1,7 @@
 import promptSync from "prompt-sync";
 const prompt = promptSync();
 
-import { connectToMongoDb, closeConnectionToMongoDb } from "./mongodb.js";
+import { connectToMongoDb, closeConnectionToMongoDb } from "./mongoConnection.js";
 import {
   addStarWarsCharacter,
   removeStarWarsCharacter,
@@ -27,10 +27,7 @@ const runApp = async () => {
     await connectToMongoDb();
     await listStarWarsCharacters();
     let userCommand;
-    do {
-      userCommand = prompt(
-        "Enter the operation you want to do (add, remove, move, list, add many, remove many, exit): "
-      ).toLowerCase();
+    do {userCommand = prompt("Enter the operation you want to do (add, remove, move, list, add many, remove many, exit): ").toLowerCase();
       if (userCommandObj[userCommand]) {
         await userCommandObj[userCommand]();
       } else if (userCommand !== "exit") {

@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
+
+// Import dotenv to access local .env connection string
 import * as dotenv from 'dotenv';
 
+//Call config method to load varible in process.env
 dotenv.config();
 
 export const connectToMongoDb = async () => {

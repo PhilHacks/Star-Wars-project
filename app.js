@@ -13,21 +13,23 @@ import {
 
 // Object mapping user input strings to the corresponding functions
 const userCommandObj = {
-  "add": addStarWarsCharacter,
-  "remove": removeStarWarsCharacter,
-  "move": moveStarWarsCharacter,
-  "list": listStarWarsCharacters,
-  "add many": addMultipleCharacters,
-  "remove many": removeMultipleCharacters,
+  'add': addStarWarsCharacter,
+  'remove': removeStarWarsCharacter,
+  'move': moveStarWarsCharacter,
+  'list': listStarWarsCharacters,
+  'add many': addMultipleCharacters,
+  'remove many': removeMultipleCharacters,
 };
 
 // Main function to execute user commands until 'exit' is entered
 const runApp = async () => {
   try {
     await connectToMongoDb();
+    await listStarWarsCharacters();
     let userCommand;
     do {
-      userCommand = prompt("Enter the operation you want to do (add, remove, move, list, add many, remove many, exit): "
+      userCommand = prompt(
+        "Enter the operation you want to do (add, remove, move, list, add many, remove many, exit): "
       ).toLowerCase();
       if (userCommandObj[userCommand]) {
         await userCommandObj[userCommand]();

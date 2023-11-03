@@ -20,8 +20,12 @@ import {
 } from "./mongodb.js";
 
 export const saveAndUpdateDatabase = async (characterName) => {
-  await saveCharacter(characterName);
-  await updateCharacterIndexes();
+  try {
+    await saveCharacter(characterName);
+    await updateCharacterIndexes();
+  } catch (error) {
+    console.error("Error saving and updating Database", error);
+  }
 };
 
 export const addStarWarsCharacter = async () => {

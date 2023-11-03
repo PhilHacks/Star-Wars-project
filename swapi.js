@@ -22,26 +22,6 @@ export async function fetchCharacterData(characterName) {
   }
 }
 
-export async function fetchAndCreateCharacter(characterName) {
-  try {
-    const response = await axios.get(
-      `https://swapi.dev/api/people/?search=${characterName}`
-    );
-
-    if (response.data.results.length === 0) {
-      console.log(`No Star Wars characters found matching "${characterName}"`);
-      return null;
-    } else {
-      return {
-        name: response.data.results[0].name,
-      };
-    }
-  } catch (error) {
-    console.error("Error: Something went wrong, try again", error);
-    return null;
-  }
-}
-
 export async function fetchMultipleCharacters(namesArray) {
   const charactersData = [];
 
@@ -49,20 +29,10 @@ export async function fetchMultipleCharacters(namesArray) {
     const name = namesArray[i];
 
     try {
-      const response = await axios.get(
-        `https://swapi.dev/api/people/?search=${name}`
-      );
-
-      if (response.data.results.length === 0) {
-        console.log(`No Star Wars characters found matching "${name}"`);
-        continue;
+      const characterData = await fetchAndCreateCharacter(name);
+      if (characterData) {
+        charactersData.push(characterData);
       }
-
-      const characterData = {
-        name: response.data.results[0].name,
-      };
-
-      charactersData.push(characterData);
     } catch (error) {
       console.error(`Error fetching character "${name}":`, error);
     }

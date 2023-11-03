@@ -1,30 +1,6 @@
 // Ansvarig för API-anropet till Swapi
 import axios from "axios";
 
-export async function getCharacterNames() {
-  try {
-    const allCharacterNames = []; // En array för att lagra alla teckennamn
-
-    let nextPage = "https://swapi.dev/api/people/"; // Nästa sida att hämta från (börjar med första sidan)
-    while (nextPage) {
-      const response = await axios.get(nextPage); // Utför en GET-förfrågan till nästa sida
-      const { results, next } = response.data; // Extrahera resultatet och länken till nästa sida från svaret
-
-      // Iterera över varje tecken i resultaten och lägg till namnet i arrayen
-      for (const character of results) {
-        allCharacterNames.push(character.name);
-      }
-
-      nextPage = next; // Uppdatera "nextPage" till länken till nästa sida
-    }
-
-    return allCharacterNames; // Returnera arrayen med alla namn
-  } catch (error) {
-    console.error(error); // Skriv ut eventuella fel som uppstår
-    throw error; // Kasta om felet för att hantera det högre upp i anropskedjan
-  }
-}
-
 // Funktion för att hämta en specifik karaktärs information baserat på namnet
 export async function fetchCharacterData(characterName) {
   try {

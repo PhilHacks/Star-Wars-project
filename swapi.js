@@ -1,8 +1,6 @@
-// Ansvarig för API-anropet till Swapi
 import axios from "axios";
 
-// Funktion för att hämta en specifik karaktärs information baserat på namnet
-export async function fetchCharacterData(characterName) {
+export async function fetchCharacterNameProperty(characterName) {
   try {
     const response = await axios.get(
       `https://swapi.dev/api/people/?search=${characterName}`
@@ -12,7 +10,7 @@ export async function fetchCharacterData(characterName) {
         `No Star Wars characters found matching "${characterName}"`
       );
     }
-    return response.data.results[0]; // Returnera den första matchningen
+    return response.data.results[0]; // Return first match
   } catch (error) {
     console.error(
       `Error fetching data for character "${characterName}":`,
@@ -29,7 +27,7 @@ export async function fetchMultipleCharacters(namesArray) {
     const name = namesArray[i];
 
     try {
-      const characterData = await fetchAndCreateCharacter(name);
+      const characterData = await fetchCharacterNameProperty(name);
       if (characterData) {
         charactersData.push(characterData);
       }

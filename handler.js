@@ -19,21 +19,41 @@ import {
   sortCharacterIndexes,
 } from "./mongodb.js";
 
+export const saveAndUpdateDatabase = async (characterName) => {
+  await saveCharacter(characterName);
+  await updateCharacterIndexes();
+};
+
 export const addStarWarsCharacter = async () => {
   try {
     const characterName = promptAddCharacter();
     const characterData = await fetchAndCreateCharacter(characterName);
     if (characterData) {
-      await saveCharacter(characterData.name);
+      await saveAndUpdateDatabase(characterData.name);
       printMessage(
         `Character "${characterData.name}" has been added to the database!`
       );
     } else {
       printMessage(`Character "${characterName}" was not found.`);
     }
-    await updateCharacterIndexes();
   } catch (error) {
     console.error("Error adding Star Wars character:", error);
+  }
+};
+
+export const addMultipleCharacters = async (count) => {
+  try {
+    const characterNames = promptAddMultipleCharacters(count);
+    const charactersData = await fetchMultipleCharacters(characterNames);
+    for (const characterData of charactersData) {
+      await saveAndUpdateDatabase(characterData.name);
+    }
+    const nameList = charactersData
+      .map((character) => character.name)
+      .join(", ");
+    printMessage(`Characters "${nameList}" has been added to the database!`);
+  } catch (error) {
+    console.error("Error adding multiple characters:", error);
   }
 };
 
@@ -49,6 +69,18 @@ export const removeStarWarsCharacter = async () => {
     await updateCharacterIndexes();
   } catch (error) {
     console.error("Error removing Star Wars character:", error);
+  }
+};
+
+export const removeMultipleCharacters = async (count) => {
+  try {
+    const characterNames = promptRemoveMultipleCharacters(count);
+    for (const name of characterNames) {
+      await removeCharacter(name);
+    }
+    await updateCharacterIndexes();
+  } catch (error) {
+    console.error("Error removing multiple characters:", error);
   }
 };
 
@@ -80,35 +112,6 @@ export const getCharacterToMove = async (name) => {
     return characterToMove;
   } catch (error) {
     console.error("Error getting character to move:", error);
-  }
-};
-
-export const addMultipleCharacters = async (count) => {
-  try {
-    const characterNames = promptAddMultipleCharacters(count);
-    const charactersData = await fetchMultipleCharacters(characterNames);
-    for (const characterData of charactersData) {
-      await saveCharacter(characterData.name);
-    }
-    const nameList = charactersData
-      .map((character) => character.name)
-      .join(", ");
-    printMessage(`Characters "${nameList}" have been added.`);
-    await updateCharacterIndexes();
-  } catch (error) {
-    console.error("Error adding multiple characters:", error);
-  }
-};
-
-export const removeMultipleCharacters = async (count) => {
-  try {
-    const characterNames = promptRemoveMultipleCharacters(count);
-    for (const name of characterNames) {
-      await removeCharacter(name);
-    }
-    await updateCharacterIndexes();
-  } catch (error) {
-    console.error("Error removing multiple characters:", error);
   }
 };
 

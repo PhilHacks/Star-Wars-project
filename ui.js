@@ -18,7 +18,8 @@ const promptCharacterName = () => prompt("Enter the name of the character to mov
 const promptNewIndex = () => prompt("Enter the new index for the character: ");
 
 
-export const promptAddMultipleCharacters = (count) => {
+export const promptAddMultipleCharacters = () => {
+  const count = parseInt(prompt("Enter the number of characters to add: "));
   const namesArray = [];
   for (let i = 0; i < count; i++) {
     const name = prompt(`Enter the name of character ${i + 1}: `);
@@ -27,7 +28,8 @@ export const promptAddMultipleCharacters = (count) => {
   return namesArray;
 };
 
-export const promptRemoveMultipleCharacters = (count) => {
+export const promptRemoveMultipleCharacters = () => {
+  const count = parseInt(prompt("Enter the number of characters to remove: "));
   const namesArray = [];
   for (let i = 0; i < count; i++) {
     const name = prompt(`Enter the name of character ${i + 1} to remove: `);

@@ -1,6 +1,8 @@
 import promptSync from "prompt-sync";
 const prompt = promptSync();
 
+export const welcomeMessage = () => console.log("🌌 Welcome to the Star Wars World of Characters! Unleash the Force! 🚀");
+
 export const promptAddCharacter = () =>
   prompt("Add Star Wars character to list: ");
 

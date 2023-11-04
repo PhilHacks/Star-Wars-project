@@ -25,7 +25,7 @@ import {
 export const listStarWarsCharacters = async () => {
   try {
     const sortedCharacters = await sortCharacterIndexes();
-    console.log("Characters in Database:");
+    console.log("🦸 Characters in Database:");
     printCharacters(sortedCharacters);
   } catch (error) {
     console.error("Error listing Star Wars characters:", error);

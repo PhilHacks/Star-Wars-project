@@ -5,21 +5,19 @@ import { connectToMongoDb, closeConnectionToMongoDb } from "./mongoConnection.js
 import { welcomeMessage } from "./ui.js";
 import {
   addStarWarsCharacter,
-  removeStarWarsCharacter,
+  removeStarWarsCharactersByIndex,
   moveStarWarsCharacter,
   listStarWarsCharacters,
   addMultipleCharacters,
-  removeMultipleCharacters,
 } from "./handler.js";
 
 // Object mapping user input strings to the corresponding functions
 const userCommandObj = {
   'a': addStarWarsCharacter,
-  'r': removeStarWarsCharacter,
+  'r': removeStarWarsCharactersByIndex,
   'm': moveStarWarsCharacter,
   'l': listStarWarsCharacters,
   'am': addMultipleCharacters,
-  'rm': removeMultipleCharacters,
 };
 
 // Main function to execute user commands until 'exit' is entered
@@ -31,7 +29,8 @@ const runApp = async () => {
     await connectToMongoDb();
     await listStarWarsCharacters();
     let userCommand;
-    do {userCommand = prompt("🎮 Do you wish to: Add (A), Remove (R), Move (M), See List (L), Add Many (Am), Remove Many (Rm), or exit (e)?: ").toLowerCase();
+    do {userCommand = 
+      prompt("🎮 Do you wish to: Add (a), Remove (r), Move (m), See List (l), Add Many (am), or exit (e)?: ").toLowerCase();
       if (userCommandObj[userCommand]) {
         await userCommandObj[userCommand]();
       } else if (userCommand !== "e") {

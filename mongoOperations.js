@@ -38,9 +38,9 @@ export const saveCharacter = async (name) => {
   }
 }
 
-export const removeCharacter = async (name) => {
+export const removeCharacterByIndex = async (index) => {
   try {
-    const result = await Character.deleteOne({ name });
+    const result = await Character.deleteOne({ index });
     return result;
   } catch (error) {
     console.error("Error removing character:", error);

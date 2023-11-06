@@ -1,9 +1,7 @@
 import {
   promptAddCharacter,
-  promptRemoveCharacter,
+  promptRemoveCharacterByIndex,
   promptMoveCharacter,
-  promptAddMultipleCharacters,
-  promptRemoveMultipleCharacters,
   printCharacters,
   printMessage,
 } from "./ui.js";
@@ -15,7 +13,7 @@ import {
 
 import {
   saveCharacter,
-  removeCharacter,
+  removeCharacterByIndex,
   findCharacterByName,
   moveCharacterToNewIndex,
   updateCharacterIndexes,
@@ -84,30 +82,20 @@ export const addMultipleCharacters = async (count) => {
   }
 };
 
-export const removeStarWarsCharacter = async () => {
+export const removeStarWarsCharactersByIndex = async () => {
   try {
-    const nameToRemove = promptRemoveCharacter();
-    const removeResult = await removeCharacter(nameToRemove);
-    printMessage(
-      removeResult
-        ? `Character "${nameToRemove}" has been removed.`
-        : `Character "${nameToRemove}" was not found.`
-    );
-    await updateAndListCharacters();
-  } catch (error) {
-    console.error("Error removing Star Wars character:", error);
-  }
-};
-
-export const removeMultipleCharacters = async (count) => {
-  try {
-    const characterNames = promptRemoveMultipleCharacters(count);
-    for (const name of characterNames) {
-      await removeCharacter(name);
+    const indexToRemove = promptRemoveCharacterByIndex();
+    for (const index of indexToRemove) {
+      const removeResult = await removeCharacterByIndex(index);
+      printMessage(
+        removeResult
+          ? `Character at index ${index} has been removed.`
+          : `No character found at index ${index}.`
+      );
     }
     await updateAndListCharacters();
   } catch (error) {
-    console.error("Error removing multiple characters:", error);
+    console.error("Error removing Star Wars characters by index:", error);
   }
 };
 

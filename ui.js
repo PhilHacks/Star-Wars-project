@@ -6,10 +6,16 @@ export const welcomeMessage = () => console.log("🌌 Welcome to the Star Wars W
 export const promptAddCharacter = () =>
   prompt("Add Star Wars character to list: ");
 
-export const promptRemoveCharacter = () =>
-  prompt("Enter the name of the character to delete: ");
-
-
+export const promptRemoveCharacterByIndex = () => {
+  const count = parseInt(prompt("Enter the number of characters to add: "));
+  const indexArray = [];
+  for (let i = 0; i < count; i++) {
+    const index = parseInt(prompt(`Enter the index of character ${i + 1}: `));
+    indexArray.push(index);
+  }
+  return indexArray;
+}
+  
 export const promptMoveCharacter = () => {
   const name = promptCharacterName();
   const toNewIndex = promptNewIndex();
@@ -20,25 +26,9 @@ const promptCharacterName = () => prompt("Enter the name of the character to mov
 const promptNewIndex = () => prompt("Enter the new index for the character: ");
 
 
-export const promptAddMultipleCharacters = () => {
-  const count = parseInt(prompt("Enter the number of characters to add: "));
-  const namesArray = [];
-  for (let i = 0; i < count; i++) {
-    const name = prompt(`Enter the name of character ${i + 1}: `);
-    namesArray.push(name);
-  }
-  return namesArray;
-};
 
-export const promptRemoveMultipleCharacters = () => {
-  const count = parseInt(prompt("Enter the number of characters to remove: "));
-  const namesArray = [];
-  for (let i = 0; i < count; i++) {
-    const name = prompt(`Enter the name of character ${i + 1} to remove: `);
-    namesArray.push(name);
-  }
-  return namesArray;
-};
+
+
 
 export const printCharacters = (characters) => {
   characters.forEach((character) => {

@@ -1,10 +1,12 @@
 import promptSync from "prompt-sync";
 const prompt = promptSync();
 
-export const welcomeMessage = () => console.log("🌌 Welcome to the Star Wars World of Characters! Unleash the Force! 🚀");
+export const welcomeMessage = () => 
+console.log("🌌 Welcome to the Star Wars World of Characters! Unleash the Force! 🚀");
 
 
-export const promptAddCharacter = () => prompt("Enter Star Wars character name or several names separated by commas:");
+export const promptAddCharacter = () => 
+prompt("Enter Star Wars character name or several names separated by commas:");
 
 
 export const promptRemoveCharacterByIndex = () => {
@@ -23,8 +25,11 @@ export const promptMoveCharacter = () => {
   return [name, toNewIndex];
 };
 
-const promptCharacterName = () => prompt("Enter the name of the character to move: ");
-const promptNewIndex = () => prompt("Enter the new index for the character: ");
+const promptCharacterName = () => 
+prompt("Enter the name of the character to move: ");
+
+const promptNewIndex = () => 
+prompt("Enter the new index for the character: ");
 
 
 export const printCharacters = (characters) => {

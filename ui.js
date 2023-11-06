@@ -7,7 +7,7 @@ export const promptAddCharacter = () =>
   prompt("Add Star Wars character to list: ");
 
 export const promptRemoveCharacterByIndex = () => {
-  const count = parseInt(prompt("Enter the number of characters to add: "));
+  const count = parseInt(prompt("Enter the number of characters to remove: "));
   const indexArray = [];
   for (let i = 0; i < count; i++) {
     const index = parseInt(prompt(`Enter the index of character ${i + 1}: `));
@@ -24,10 +24,6 @@ export const promptMoveCharacter = () => {
 
 const promptCharacterName = () => prompt("Enter the name of the character to move: ");
 const promptNewIndex = () => prompt("Enter the new index for the character: ");
-
-
-
-
 
 
 export const printCharacters = (characters) => {

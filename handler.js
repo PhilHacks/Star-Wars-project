@@ -49,21 +49,25 @@ export const saveAndUpdateDatabase = async (characterName) => {
 
 export const addStarWarsCharacter = async () => {
   try {
-    const characterName = promptAddCharacter();
-    const characterData = await fetchCharacterNameProperty(characterName);
-    if (characterData) {
-      await saveAndUpdateDatabase(characterData.name);
-      printMessage(
-        `Character "${characterData.name}" has been added to the database!`
-      );
-      await updateAndListCharacters();
-    } else {
-      printMessage(`Character "${characterName}" was not found.`);
+    const characterNamesInput = promptAddCharacter();
+    // Split the input by commas and remove any extra whitespace around the names
+    const characterNames = characterNamesInput.split(',').map(name => name.trim());
+
+    for (const characterName of characterNames) {
+      const characterData = await fetchCharacterNameProperty(characterName);
+      if (characterData) {
+        await saveAndUpdateDatabase(characterData.name);
+        printMessage(`Character "${characterData.name}" has been added to the database!`);
+      } else {
+        printMessage(`Character "${characterName}" was not found.`);
+      }
     }
+    await updateAndListCharacters();
   } catch (error) {
-    console.error("Error adding Star Wars character:", error);
+    console.error("Error adding Star Wars character(s):", error);
   }
 };
+
 
 export const addMultipleCharacters = async (count) => {
   try {
@@ -101,7 +105,7 @@ export const removeStarWarsCharactersByIndex = async () => {
 
 export const moveStarWarsCharacter = async () => {
   try {
-    const [nameToMove, toNewIndex] = promptMoveCharacter(); // get name from user
+    const [nameToMove, toNewIndex] = promptMoveCharacter();
     await handleCharacterMovement(nameToMove, toNewIndex);
     await updateAndListCharacters();
   } catch (error) {

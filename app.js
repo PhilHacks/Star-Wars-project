@@ -8,7 +8,6 @@ import {
   removeStarWarsCharactersByIndex,
   moveStarWarsCharacter,
   listStarWarsCharacters,
-  addMultipleCharacters,
 } from "./handler.js";
 
 // Object mapping user input strings to the corresponding functions
@@ -17,7 +16,6 @@ const userCommandObj = {
   'r': removeStarWarsCharactersByIndex,
   'm': moveStarWarsCharacter,
   'l': listStarWarsCharacters,
-  'am': addMultipleCharacters,
 };
 
 // Main function to execute user commands until 'exit' is entered
@@ -30,7 +28,7 @@ const runApp = async () => {
     await listStarWarsCharacters();
     let userCommand;
     do {userCommand = 
-      prompt("🎮 Do you wish to: Add (a), Remove (r), Move (m), See List (l), Add Many (am), or exit (e)?: ").toLowerCase();
+      prompt("🎮 Do you wish to: Add (a), Remove (r), Move (m), See List (l), or exit (e)?: ").toLowerCase();
       if (userCommandObj[userCommand]) {
         await userCommandObj[userCommand]();
       } else if (userCommand !== "e") {

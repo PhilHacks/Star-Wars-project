@@ -3,8 +3,9 @@ const prompt = promptSync();
 
 export const welcomeMessage = () => console.log("🌌 Welcome to the Star Wars World of Characters! Unleash the Force! 🚀");
 
-export const promptAddCharacter = () =>
-  prompt("Add Star Wars character to list: ");
+
+export const promptAddCharacter = () => prompt("Enter Star Wars character name or several names separated by commas:");
+
 
 export const promptRemoveCharacterByIndex = () => {
   const count = parseInt(prompt("Enter the number of characters to remove: "));

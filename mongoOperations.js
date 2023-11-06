@@ -79,9 +79,9 @@ export const moveCharacterToNewIndex = async (characterToMove, newIndexInt) => {
   }
 };
 
-export const findCharacterByName = async (name) => {
+export const findCharacterByIndex = async (index) => {
   try {
-    const character = await Character.findOne({ name });
+    const character = await Character.findOne({ index });
     return character;
   } catch (error) {
     console.error("Error finding character:", error);

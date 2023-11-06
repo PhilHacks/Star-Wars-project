@@ -20,13 +20,13 @@ export const promptRemoveCharacterByIndex = () => {
 }
   
 export const promptMoveCharacter = () => {
-  const name = promptCharacterName();
+  const oldIndex = promptCharacterName();
   const toNewIndex = promptNewIndex();
-  return [name, toNewIndex];
+  return [oldIndex, toNewIndex];
 };
 
 const promptCharacterName = () => 
-prompt("Enter the name of the character to move: ");
+prompt("Enter the index of the character to move: ");
 
 const promptNewIndex = () => 
 prompt("Enter the new index for the character: ");

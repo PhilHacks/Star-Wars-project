@@ -14,7 +14,7 @@ import {
 import {
   saveCharacter,
   removeCharacterByIndex,
-  findCharacterByName,
+  findCharacterByIndex,
   moveCharacterToNewIndex,
   updateCharacterIndexes,
   sortCharacterIndexes,
@@ -113,22 +113,22 @@ export const moveStarWarsCharacter = async () => {
   }
 };
 
-export const handleCharacterMovement = async (nameToMove, toNewIndex) => {
+export const handleCharacterMovement = async (oldIndex, toNewIndex) => {
   try {
-    const characterToMove = await getCharacterToMove(nameToMove);
+    const characterToMove = await getCharacterToMove(oldIndex);
     if (characterToMove) {
       await moveCharacterToNewIndex(characterToMove, toNewIndex);
     } else {
-      printMessage(`Character "${nameToMove}" was not found`);
+      printMessage(`Character "${oldIndex}" was not found`);
     }
   } catch (error) {
     console.error("Error handle character movement:", error);
   }
 };
 
-export const getCharacterToMove = async (name) => {
+export const getCharacterToMove = async (index) => {
   try {
-    const characterToMove = await findCharacterByName(name);
+    const characterToMove = await findCharacterByIndex(index);
     return characterToMove;
   } catch (error) {
     console.error("Error getting character to move:", error);

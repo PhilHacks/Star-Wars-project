@@ -10,6 +10,8 @@ import {
   listStarWarsCharacters,
 } from "./handler.js";
 
+import { startServer } from "./server.js"
+
 // Object mapping user input strings to the corresponding functions
 const userCommandObj = {
   'a': addStarWarsCharacter,
@@ -25,6 +27,7 @@ const runApp = async () => {
     welcomeMessage();
     
     await connectToMongoDb();
+    await startServer();
     await listStarWarsCharacters();
     let userCommand;
     do {userCommand = 

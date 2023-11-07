@@ -1,6 +1,6 @@
 import { listStarWarsCharacters, addStarWarsCharacter, removeStarWarsCharactersByIndex} from "./handler.js"
 
-import { express } from "express";
+import express  from "express";
 
 
 const app = express();
@@ -32,14 +32,16 @@ app.post('/characters', async (req, res) => {
 app.delete('/characters:index', async (req, res) => {
     try {
         const { index } = req.params;
-        await removeStarWarsCharacterByIndex(index);
+        await removeStarWarsCharactersByIndex(index);
         res.send(`Character at index ${index} removed successfully.`);
       } catch (error) {
         res.status(500).send(error.message);
       }
 })
 
+export const startServer = async () => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+}

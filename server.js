@@ -17,7 +17,7 @@ app.get('/characters', async (req, res) =>{
 })
 
 // Route add new character
-app.post('/characters', async (req, res) => {
+app.post('/characters/add', async (req, res) => {
     try {
         const { name } = req.body;
         await addStarWarsCharacter(name);
@@ -29,7 +29,7 @@ app.post('/characters', async (req, res) => {
 
 
 // Route remove character by index
-app.delete('/characters:index', async (req, res) => {
+app.delete('/characters/remove/:index', async (req, res) => {
     try {
         const { index } = req.params;
         await removeStarWarsCharactersByIndex(index);

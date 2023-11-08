@@ -68,24 +68,6 @@ export const addStarWarsCharacter = async () => {
   }
 };
 
-
-export const addMultipleCharacters = async (count) => {
-  try {
-    const characterNames = promptAddMultipleCharacters(count);
-    const charactersData = await fetchMultipleCharacters(characterNames);
-    for (const characterData of charactersData) {
-      await saveAndUpdateDatabase(characterData.name);
-    }
-    const nameList = charactersData
-      .map((character) => character.name)
-      .join(", ");
-    printMessage(`Characters "${nameList}" has been added to the database!`);
-    await updateAndListCharacters();
-  } catch (error) {
-    console.error("Error adding multiple characters:", error);
-  }
-};
-
 export const removeStarWarsCharactersByIndex = async () => {
   try {
     const indexToRemove = promptRemoveCharacterByIndex();
@@ -105,8 +87,8 @@ export const removeStarWarsCharactersByIndex = async () => {
 
 export const moveStarWarsCharacter = async () => {
   try {
-    const [nameToMove, toNewIndex] = promptMoveCharacter();
-    await handleCharacterMovement(nameToMove, toNewIndex);
+    const [indexToMove, toNewIndex] = promptMoveCharacter();
+    await handleCharacterMovement(indexToMove, toNewIndex);
     await updateAndListCharacters();
   } catch (error) {
     console.error("Error moving Star Wars character:", error);

@@ -6,7 +6,7 @@ console.log("🌌 Welcome to the Star Wars World of Characters! Unleash the Forc
 
 
 export const promptAddCharacter = () => 
-prompt("Enter Star Wars character name or several names separated by commas:");
+prompt("Enter Star Wars character name or several characters separated by commas:");
 
 
 export const promptRemoveCharacterByIndex = () => {

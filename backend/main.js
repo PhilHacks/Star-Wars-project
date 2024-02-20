@@ -29,16 +29,16 @@ const runApp = async () => {
     await connectToMongoDb();
     await startServer();
     await listStarWarsCharacters();
-    let userCommand;
-    do {userCommand = 
-      prompt("🎮 Do you wish to: Add (a), Remove (r), Move (m), See List (l), or exit (e)?: ").toLowerCase();
-      if (userCommandObj[userCommand]) {
-        await userCommandObj[userCommand]();
-      } else if (userCommand !== "e") {
-        console.log("Invalid operation. Try again.");
-      }
-    } while (userCommand !== "e");
-    await closeConnectionToMongoDb();
+    // let userCommand;
+    // do {userCommand = 
+    //   prompt("🎮 Do you wish to: Add (a), Remove (r), Move (m), See List (l), or exit (e)?: ").toLowerCase();
+    //   if (userCommandObj[userCommand]) {
+    //     await userCommandObj[userCommand]();
+    //   } else if (userCommand !== "e") {
+    //     console.log("Invalid operation. Try again.");
+    //   }
+    // } while (userCommand !== "e");
+    // await closeConnectionToMongoDb();
   } catch (error) {
     console.error("Error in main application:", error);
     await closeConnectionToMongoDb();

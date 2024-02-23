@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-import { printMessage } from "./ui.js";
 
 const characterSchema = new mongoose.Schema({
   name: String,
@@ -38,13 +37,19 @@ export const saveCharacter = async (name) => {
   }
 }
 
-export const removeCharacterByIndex = async (index) => {
+export const removeCharacterById = async (id) => {
   try {
-    const result = await Character.deleteOne({ index });
+    const result = await Character.findByIdAndDelete(id);
+    if (result) {
+      console.log(`Character with ID ${id} was deleted.`, result);
+      await updateCharacterIndexes();
+    } else {
+      console.log(`No character found with ID ${id}.`);
+    }
     return result;
   } catch (error) {
-    console.error("Error removing character:", error);
-    return null;
+    console.error("Error removing character by ID:", error);
+    throw error; 
   }
 }
 
@@ -71,7 +76,7 @@ export const moveCharacterToNewIndex = async (characterToMove, newIndexInt) => {
     characterToMove.index = newIndexInt;
     await characterToMove.save();
     await updateCharacterIndexes();
-    printMessage(
+    console.log(
       `Character "${characterToMove.name}" moved successfully to index ${newIndexInt}`
     );
   } catch (error) {
@@ -88,3 +93,32 @@ export const findCharacterByIndex = async (index) => {
     return null;
   }
 }
+
+export const swapCharacters = async (id1, id2) => {
+  try {
+    // Retrieve both characters
+    const character1 = await Character.findById(id1);
+    const character2 = await Character.findById(id2);
+
+    if (!character1 || !character2) {
+      throw new Error('One or both characters not found');
+    }
+
+    // Swap the index values
+    const indexTemp = character1.index;
+    character1.index = character2.index;
+    character2.index = indexTemp;
+
+    // Save the swapped characters
+    await character1.save();
+    await character2.save();
+
+    await updateCharacterIndexes();
+
+    return { success: true, message: 'Characters swapped successfully' };
+   
+  } catch (error) {
+    console.error("Error swapping characters:", error);
+    throw error; // The caller will handle the error  
+  }
+};

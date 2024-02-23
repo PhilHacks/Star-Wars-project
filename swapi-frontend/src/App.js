@@ -7,7 +7,7 @@ function App() {
   // const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/characters')
+    axios.get('http://localhost:5000/characters')
     .then((res) => console.log(res.data))
     .catch(err => console.log(err));
   }, [])

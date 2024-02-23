@@ -1,5 +1,5 @@
-import { listStarWarsCharacters, addStarWarsCharacter, removeStarWarsCharactersByIndex} from "./handler.js"
-import {sortCharacterIndexes } from "./mongoOperations.js"
+import { listStarWarsCharacters, addStarWarsCharacter, removeStarWarsCharactersById} from "./handler.js"
+import { swapCharacters } from "./mongoOperations.js";
 // import cors from "cors"
 import express  from "express";
 
@@ -23,25 +23,38 @@ app.get('/characters', async (req, res) =>{
 // Route add new character
 app.post('/characters/add', async (req, res) => { 
     try {
-        const { name } = req.body;
-        await addStarWarsCharacter(name);
-        res.status(201).send(`Character ${name} added successfully.`);
+        const { characterNames } = req.body;
+        const result = await addStarWarsCharacter(characterNames);
+        res.status(201).json(result)
       } catch (error) {
         res.status(500).send(error.message);
       }
 })
 
+app.post('/characters/swap', async (req, res) => {
+  try {
+    const { id1, id2 } = req.body; 
+    const result = await swapCharacters(id1, id2);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 // Route remove character by index
-app.delete('/characters/remove/:index', async (req, res) => {
+app.delete('/characters/remove/:id', async (req, res) => {
     try {
-        const { index } = req.params;
-        await removeStarWarsCharactersByIndex(index);
-        res.send(`Character at index ${index} removed successfully.`);
-      } catch (error) {
-        res.status(500).send(error.message);
-      }
-})
+        const { id } = req.params;
+        const result = await removeStarWarsCharactersById(id);
+        if (result) {
+          res.send(result.message);
+        } else {
+          res.status(404).send(result.message);
+        }
+    } catch (error) {
+        res.status(500).send(`Error removing character: ${error.message}`);
+    }
+});
 
 export const startServer = async () => {
 const PORT = process.env.PORT || 5000;

@@ -22,11 +22,11 @@ import {
 export const listStarWarsCharacters = async () => {
   try {
     const sortedCharacters = await sortCharacterIndexes();
-    console.log("🦸 Characters in Database:" ,sortedCharacters);
+    console.log("🦸 Characters in Database:", sortedCharacters);
     return sortedCharacters;
   } catch (error) {
     console.error("Error listing Star Wars characters:", error);
-    throw error; 
+    throw error;
   }
 };
 
@@ -49,39 +49,42 @@ export const saveAndUpdateDatabase = async (characterName) => {
 
 export const addStarWarsCharacter = async (characterNames) => {
   const results = { added: [], notFound: [] };
-  for (const characterName of characterNames) { 
+  for (const characterName of characterNames) {
     try {
       const characterData = await fetchCharacterNameProperty(characterName);
-      await saveAndUpdateDatabase(characterData.name); 
-      results.added.push(characterData.name);    
+      await saveAndUpdateDatabase(characterData.name);
+      results.added.push(characterData.name);
     } catch (error) {
       console.error(`Error processing ${characterName}:`, error);
       results.notFound.push(characterName);
     }
-  } 
+  }
 
   await updateCharacterIndexes();
 
   return results;
 };
 
-
 export const removeStarWarsCharactersById = async (characterId) => {
   try {
-      const removeResult = await removeCharacterById(characterId);
-      await updateCharacterIndexes();
-      if (removeResult) {
-        return { success: true, message: `Character with ID ${characterId} has been removed successfully.` };
-      } else {
-        return { success: false, message: `No character found with ID ${characterId}.` };
-      }
-    } catch (error) {
-      console.error("Error removing Star Wars character by ID:", error);
-      throw error; // Rethrow the error to handle it in the Express route
+    const removeResult = await removeCharacterById(characterId);
+    await updateCharacterIndexes();
+    if (removeResult) {
+      return {
+        success: true,
+        message: `Character with ID ${characterId} has been removed successfully.`,
+      };
+    } else {
+      return {
+        success: false,
+        message: `No character found with ID ${characterId}.`,
+      };
     }
-  };
-
-
+  } catch (error) {
+    console.error("Error removing Star Wars character by ID:", error);
+    throw error; // Rethrow the error to handle it in the Express route
+  }
+};
 
 export const moveStarWarsCharacter = async () => {
   try {

@@ -1,10 +1,11 @@
-import { connectToMongoDb, closeConnectionToMongoDb } from "./mongoConnection.js";
-import { startServer } from "./server.js"
-
+import {
+  connectToMongoDb,
+  closeConnectionToMongoDb,
+} from "./mongoConnection.js";
+import { startServer } from "./server.js";
 
 const runApp = async () => {
-  
-  try {    
+  try {
     await connectToMongoDb();
     await startServer();
   } catch (error) {

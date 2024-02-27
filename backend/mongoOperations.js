@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const characterSchema = new mongoose.Schema({
   name: String,
   index: { type: Number, required: true },
@@ -8,7 +7,7 @@ const characterSchema = new mongoose.Schema({
 
 const Character = mongoose.model("Character", characterSchema);
 
-export const updateCharacterIndexes = async () =>{
+export const updateCharacterIndexes = async () => {
   const characters = await Character.find().sort({ index: 1 });
 
   for (let i = 0; i < characters.length; i++) {
@@ -18,11 +17,11 @@ export const updateCharacterIndexes = async () =>{
       await character.save();
     }
   }
-}
+};
 
 export const sortCharacterIndexes = async () => {
   return await Character.find().sort({ index: 1 });
-}
+};
 
 export const saveCharacter = async (name) => {
   const character = new Character({ name });
@@ -35,7 +34,7 @@ export const saveCharacter = async (name) => {
     console.error("Error saving character to the database:", error);
     return null;
   }
-}
+};
 
 export const removeCharacterById = async (id) => {
   try {
@@ -49,9 +48,9 @@ export const removeCharacterById = async (id) => {
     return result;
   } catch (error) {
     console.error("Error removing character by ID:", error);
-    throw error; 
+    throw error;
   }
-}
+};
 
 export const updateMultipleCharacterIndexes = async (query, update) => {
   try {
@@ -59,7 +58,7 @@ export const updateMultipleCharacterIndexes = async (query, update) => {
   } catch (error) {
     console.error("Error updating multiple character indexes:", error);
   }
-}
+};
 
 export const moveCharacterToNewIndex = async (characterToMove, newIndexInt) => {
   try {
@@ -92,7 +91,7 @@ export const findCharacterByIndex = async (index) => {
     console.error("Error finding character:", error);
     return null;
   }
-}
+};
 
 export const swapCharacters = async (id1, id2) => {
   try {
@@ -101,7 +100,7 @@ export const swapCharacters = async (id1, id2) => {
     const character2 = await Character.findById(id2);
 
     if (!character1 || !character2) {
-      throw new Error('One or both characters not found');
+      throw new Error("One or both characters not found");
     }
 
     // Swap the index values
@@ -115,10 +114,9 @@ export const swapCharacters = async (id1, id2) => {
 
     await updateCharacterIndexes();
 
-    return { success: true, message: 'Characters swapped successfully' };
-   
+    return { success: true, message: "Characters swapped successfully" };
   } catch (error) {
     console.error("Error swapping characters:", error);
-    throw error; // The caller will handle the error  
+    throw error; // The caller will handle the error
   }
 };

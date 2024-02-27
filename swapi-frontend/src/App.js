@@ -1,23 +1,47 @@
-import { useEffect,  } from 'react';
-import './App.css';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import "./App.css";
+import CharacterForm from "./components/CharacterForm";
+import DeleteCharacters from "./components/DeleteCharacters";
+import CharacterList from "./components/CharacterList";
+import SwapCharacter from "./components/SwapCharacter";
+import { fetchCharacters } from "./services/CharacterService";
 
 function App() {
-
-  // const [characters, setCharacters] = useState([]);
+  const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/characters')
-    .then((res) => console.log(res.data))
-    .catch(err => console.log(err));
-  }, [])
+    fetchCharactersAndUpdate();
+  }, []);
+
+  const fetchCharactersAndUpdate = () => {
+    fetchCharacters()
+      .then((res) => setCharacters(res.data))
+      .catch((err) => console.log(err));
+  };
 
   return (
-    <div className="App">
-      <h1>Swapi App</h1>
-    </div>
+    <>
+      <div className="container">
+        <div className="content">
+          <h1>Swapi App</h1>
+          <CharacterForm
+            fetchCharactersAndUpdate={fetchCharactersAndUpdate}
+            characters={characters}
+          />
+          <h2>Characters:</h2>
+          <CharacterList setCharacters={setCharacters} />
+          <DeleteCharacters
+            fetchCharactersAndUpdate={fetchCharactersAndUpdate}
+            characters={characters}
+          />
+          <SwapCharacter
+            fetchCharactersAndUpdate={fetchCharactersAndUpdate}
+            characters={characters}
+          />
+        </div>
+      </div>
+    </>
   );
 }
 
 export default App;
-

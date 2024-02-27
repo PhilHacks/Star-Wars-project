@@ -1,9 +1,43 @@
-import React from 'react'
+import { useState } from 'react'
+import { addCharacter } from '../services/CharacterService';
 
-function CharacterForm() {
+
+function CharacterForm({fetchCharactersAndUpdate, characters}) {
+  const [newCharacter, setNewCharacterName] = useState("");
+ 
+
+  const addNewCharacter = (characterName) => {
+    console.log("Adding character:", characterName);
+    addCharacter(characterName)
+      .then(() => {
+        fetchCharactersAndUpdate();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleAddCharacter = () => {
+    console.log("New character:", newCharacter);
+    if (newCharacter.trim() === "") {return;}
+    if (characters.some(character => character.name === newCharacter.trim())) {
+    alert("Character with the same name already exsists!");
+    return;
+    } else {
+    addNewCharacter(newCharacter);
+    setNewCharacterName("");
+  }
+  };
+
+
   return (
-    <div>CharacterForm</div>
+  <>
+    <input
+        type="text"
+        value={newCharacter}
+        onChange={(e) => setNewCharacterName(e.target.value)}
+        />
+        <button onClick={handleAddCharacter}>Add Character</button>
+      </>
   )
 }
 
-export default CharacterForm
+export default CharacterForm;

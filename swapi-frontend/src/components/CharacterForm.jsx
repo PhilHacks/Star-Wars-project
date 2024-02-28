@@ -4,15 +4,23 @@ import { addCharacter } from '../services/CharacterService';
 
 function CharacterForm({fetchCharactersAndUpdate, characters}) {
   const [newCharacter, setNewCharacterName] = useState("");
+  const [loading, setLoading] = useState(false)
  
 
   const addNewCharacter = (characterName) => {
+    setLoading(true);
     console.log("Adding character:", characterName);
     addCharacter(characterName)
       .then(() => {
         fetchCharactersAndUpdate();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.error(err);
+        // setErrorMessage('Failed to add character');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleAddCharacter = () => {
@@ -36,6 +44,7 @@ function CharacterForm({fetchCharactersAndUpdate, characters}) {
         onChange={(e) => setNewCharacterName(e.target.value)}
         />
         <button onClick={handleAddCharacter}>Add Character</button>
+        {loading && <span>Loading...</span>}
       </>
   )
 }

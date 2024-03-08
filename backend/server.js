@@ -26,12 +26,27 @@ app.get("/characters", async (req, res) => {
 // Route add new character
 app.post("/characters/add", async (req, res) => {
   try {
-    const characterName = req.body.characterName;
+    const { characterName } = req.body;
+    if (!characterName) {
+      return res.status(400).json({ message: "Invalid character name" });
+    }
     console.log(characterName);
-    const result = await addStarWarsCharacter([characterName]);
-    res.status(201).json(result);
+
+    const result = await addStarWarsCharacter(characterName);
+
+    if (result.success) {
+      res.status(200).json({
+        success: true,
+        message: `${characterName} added successfully`,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: `${characterName} is not a Star Wars Character`,
+      });
+    }
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json({ message: "Error fetching characters" });
   }
 });
 

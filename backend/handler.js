@@ -47,22 +47,17 @@ export const saveAndUpdateDatabase = async (characterName) => {
   }
 };
 
-export const addStarWarsCharacter = async (characterNames) => {
-  const results = { added: [], notFound: [] };
-  for (const characterName of characterNames) {
-    try {
-      const characterData = await fetchCharacterNameProperty(characterName);
-      await saveAndUpdateDatabase(characterData.name);
-      results.added.push(characterData.name);
-    } catch (error) {
-      console.error(`Error processing ${characterName}:`, error);
-      results.notFound.push(characterName);
-    }
+export const addStarWarsCharacter = async (characterName) => {
+  try {
+    const characterData = await fetchCharacterNameProperty(characterName);
+    await saveAndUpdateDatabase(characterData.name);
+    return { success: true, characterName: characterData.name };
+  } catch (error) {
+    console.error(`Error processing ${characterName}:`, error);
+    return { success: false, characterName };
+  } finally {
+    await updateCharacterIndexes();
   }
-
-  await updateCharacterIndexes();
-
-  return results;
 };
 
 export const removeStarWarsCharactersById = async (characterId) => {

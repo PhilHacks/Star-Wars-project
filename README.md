@@ -88,7 +88,7 @@ The project is structured into two main folders:
 - `backend/` contains all backend-related files.
 - `swapi-frontend/` contains the React frontend application.
 
-![SWAPI App Interface](./swapi-frontend/img/swapi.png)
+![SWAPI App Interface](./frontend/img/swapi.png)
 
 ## Technologies Used
 

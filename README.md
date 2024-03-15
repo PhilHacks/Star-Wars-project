@@ -6,8 +6,9 @@
 2. [Installation and Setup](#installation-and-setup)
 3. [API Endpoints](#api-endpoints)
 4. [Project Structure](#project-structure)
-5. [Technologies Used](#technologies-used)
-6. [Database Configuration](#database-configuration)
+5. [Image of StarWars App](#Image-of-StarWars-App)
+6. [Technologies Used](#technologies-used)
+7. [Database Configuration](#database-configuration)
 
 ## Project Overview
 
@@ -57,7 +58,7 @@ npm start
 Open a new terminal window. Navigate to the frontend directory:
 
 ```sh
-cd ../swapi-frontend
+cd ../frontend
 ```
 
 Install dependencies:
@@ -81,12 +82,51 @@ The backend API provides endpoints for managing characters, including:
 - `DELETE /characters/remove/:id` - Remove a character by ID.
 - `POST /characters/swap` - Swap positions of two characters.
 
-## Project Structure
+# Project Structure
 
-The project is structured into two main folders:
+The project is divided into two main parts: `backend` and `frontend`.
 
-- `backend/` contains all backend-related files.
-- `swapi-frontend/` contains the React frontend application.
+## Backend
+
+The backend codebase is located in the `backend` directory and it's structured as follows:
+
+backend/
+├─ src/
+│ ├─ handler.js - Handles the business logic for API endpoints.
+│ ├─ mongoConnection.js - Manages the MongoDB database connection.
+│ ├─ mongoOperations.js - Performs database operations like CRUD.
+│ ├─ server.js - Sets up the Express server and API routes.
+│ └─ swapi.js - Handles fetching data from the external Star Wars API.
+├─ .gitignore - Specifies files to ignore in version control.
+├─ main.js - The main entry point for the backend server.
+└─ package.json - Defines the project and its dependencies.
+
+## Frontend
+
+The frontend codebase is located in the `frontend` directory. It's a React application structured as follows:
+
+frontend/
+├─ public/ - Contains the static files served by the React application.
+│ └─ img/
+│ └─ swapi.png - The application's screenshot for documentation.
+├─ src/
+│ ├─ components/ - Contains all the React components.
+│ │ ├─ CharacterForm.jsx - The form component for adding new characters.
+│ │ ├─ CharacterList.jsx - Lists all the characters with delete functionality.
+│ │ ├─ MessageComponent.jsx - Displays messages to the user.
+│ │ ├─ SpinnerComponent.jsx - Shows a loading spinner.
+│ │ └─ SwapCharacter.jsx - Component for swapping characters' positions.
+│ ├─ services/
+│ │ └─ CharacterService.js - Manages API calls for character operations.
+│ ├─ App.js - The root React component that assembles the app.
+│ ├─ index.css - Global styles for the app.
+│ ├─ index.js - The entry point for the React application.
+│ └─ setupTests.js - Configuration file for testing.
+├─ .gitignore - Specifies files to ignore in version control.
+├─ package-lock.json - Automatically generated for any operations where npm modifies either the node_modules tree or package.json.
+└─ package.json - Defines the frontend project and its dependencies.
+
+## Image of StarWars App
 
 ![SWAPI App Interface](./frontend/img/swapi.png)
 

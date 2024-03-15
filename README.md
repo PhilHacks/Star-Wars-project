@@ -97,4 +97,28 @@ The project is structured into two main folders:
 
 ## Database Configuration
 
-Detailed instructions for configuring both local and cloud (MongoDB Atlas) databases!
+### Connecting to MongoDB Locally
+
+1. Ensure that MongoDB is installed on your system. If not, download and install it from the [MongoDB Download Center](https://www.mongodb.com/try/download/community).
+
+2. Start the MongoDB service. The method varies depending on your operating system:
+
+   - **Windows**: The MongoDB service typically starts automatically after installation.
+   - **macOS/Linux**: You may need to start `mongod` manually with the following command in your terminal:
+     ```shell
+     mongod
+     ```
+
+3. Open MongoDB Compass, which is the official GUI for MongoDB. Connect to the default local MongoDB instance at `mongodb://localhost:27017`.
+
+4. Create a new database for the application, for example, `mydatabase`.
+
+5. In your project, create a `.env` file and add the following line:
+
+   ```
+   URI=mongodb://localhost:27017/mydatabase
+   ```
+
+   Replace `mydatabase` with the name of the database you created in Compass.
+
+6. Run your Node.js application. It should now be able to connect to your local MongoDB instance using the connection string from the `.env` file.

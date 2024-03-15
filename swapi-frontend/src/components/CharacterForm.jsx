@@ -2,19 +2,31 @@ import { useState } from "react";
 import { addCharacter } from "../services/CharacterService";
 import styled from "styled-components";
 import SpinnerComponent from "./SpinnerComponent";
+import MessageComponent from "./MessageComponent";
 
-const ElementContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+const CharacterFormContainer = styled.div`
+  margin-bottom: 30px;
 `;
 
-const MessageContainer = styled.div`
-  height: 50px;
-  margin-bottom: 10px;
+const FormContainer = styled.div`
   display: flex;
   align-items: center;
-  min-height: 75px;
+  flex-direction: row;
+  width: 100%;
+`;
+
+const InputField = styled.input`
+  flex-grow: 1;
+  padding: 6px;
+  &::placeholder {
+    color: #d2b55b;
+    opacity: 0.6;
+  }
+`;
+
+const Button = styled.button`
+  padding: 6px;
+  cursor: pointer;
 `;
 
 function CharacterForm({ fetchCharactersAndUpdate, characters }) {
@@ -28,16 +40,19 @@ function CharacterForm({ fetchCharactersAndUpdate, characters }) {
     try {
       const response = await addCharacter(characterName);
       console.log(response);
-
-      if (!response.data.success) {
-        setMessage(`${characterName} is not a Star Wars character!`);
-      } else {
-        setMessage(`${characterName} has been added!`);
-        await fetchCharactersAndUpdate();
-      }
+      setMessage(`${characterName} has been added!`);
+      await fetchCharactersAndUpdate();
     } catch (error) {
       console.error(error);
-      setMessage("Failed to add character");
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage("Failed to add character");
+      }
     } finally {
       setLoading(false);
       setTimeout(() => setMessage(""), 3000);
@@ -47,7 +62,7 @@ function CharacterForm({ fetchCharactersAndUpdate, characters }) {
   const handleAddCharacter = () => {
     if (newCharacter.trim() === "") {
       return (
-        setMessage("Empty input! please add a character"),
+        setMessage("Empty input, please add a character"),
         setTimeout(() => setMessage(""), 3000)
       );
     }
@@ -55,7 +70,7 @@ function CharacterForm({ fetchCharactersAndUpdate, characters }) {
     if (
       characters.some((character) => character.name === newCharacter.trim())
     ) {
-      setMessage("Character with the same name already exsists!");
+      setMessage("Character already exsists in list!");
       setNewCharacterName("");
       setTimeout(() => setMessage(""), 3000);
       return;
@@ -66,16 +81,19 @@ function CharacterForm({ fetchCharactersAndUpdate, characters }) {
   };
 
   return (
-    <ElementContainer>
-      <input
-        type="text"
-        value={newCharacter}
-        onChange={(e) => setNewCharacterName(e.target.value)}
-      />
-      <button onClick={handleAddCharacter}>Add Character</button>
-      {loading ? <SpinnerComponent /> : null}
-      <MessageContainer>{message && <p>{message}</p>}</MessageContainer>
-    </ElementContainer>
+    <CharacterFormContainer>
+      <FormContainer>
+        <InputField
+          type="text"
+          value={newCharacter}
+          onChange={(e) => setNewCharacterName(e.target.value)}
+          placeholder="Add new Character"
+        />
+        <Button onClick={handleAddCharacter}>Add</Button>
+        {loading ? <SpinnerComponent /> : null}
+      </FormContainer>
+      {message && <MessageComponent message={message} />}
+    </CharacterFormContainer>
   );
 }
 

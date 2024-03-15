@@ -8,7 +8,7 @@ const MessageContainer = styled.div`
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 200px;
+  bottom: 120px;
 `;
 
 function MessageComponent({ message }) {

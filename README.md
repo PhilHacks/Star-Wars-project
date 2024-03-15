@@ -90,6 +90,7 @@ The project is divided into two main parts: `backend` and `frontend`.
 
 The backend codebase is located in the `backend` directory and it's structured as follows:
 
+```
 backend/
 ├─ src/
 │ ├─ handler.js - Handles the business logic for API endpoints.
@@ -100,11 +101,13 @@ backend/
 ├─ .gitignore - Specifies files to ignore in version control.
 ├─ main.js - The main entry point for the backend server.
 └─ package.json - Defines the project and its dependencies.
+```
 
 ## Frontend
 
 The frontend codebase is located in the `frontend` directory. It's a React application structured as follows:
 
+```
 frontend/
 ├─ public/ - Contains the static files served by the React application.
 │ └─ img/
@@ -125,6 +128,7 @@ frontend/
 ├─ .gitignore - Specifies files to ignore in version control.
 ├─ package-lock.json - Automatically generated for any operations where npm modifies either the node_modules tree or package.json.
 └─ package.json - Defines the frontend project and its dependencies.
+```
 
 ## Image of StarWars App
 

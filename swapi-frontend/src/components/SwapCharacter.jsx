@@ -12,6 +12,7 @@ const SwapButton = styled.button`
 const StyledSelect = styled.select`
   padding: 5px;
   margin: 0;
+  min-width: 168px;
 `;
 
 function SwapCharacter({ fetchCharactersAndUpdate, characters }) {

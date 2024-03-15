@@ -1,10 +1,3 @@
-// import {
-//   promptAddCharacter,
-//   promptRemoveCharacterByIndex,
-//   promptMoveCharacter,
-//   printMessage,
-// } from "./ui.js";
-
 import {
   fetchCharacterNameProperty,
   fetchMultipleCharacters,

@@ -1,8 +1,8 @@
 import {
   connectToMongoDb,
   closeConnectionToMongoDb,
-} from "./mongoConnection.js";
-import { startServer } from "./server.js";
+} from "./src/mongoConnection.js";
+import { startServer } from "./src/server.js";
 
 const runApp = async () => {
   try {

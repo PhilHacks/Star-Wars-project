@@ -61,7 +61,7 @@ function App() {
             fetchCharactersAndUpdate={fetchCharactersAndUpdate}
             characters={characters}
           />
-          <Headline>Characters:</Headline>
+          <Headline>Characters</Headline>
           <CharacterList
             fetchCharactersAndUpdate={fetchCharactersAndUpdate}
             characters={characters}

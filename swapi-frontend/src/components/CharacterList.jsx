@@ -30,12 +30,14 @@ const ListItem = styled.li`
   justify-content: space-between;
   align-items: center;
   height: 38px;
-  padding: 2px;
+  padding-rigth: 0px;
   margin: 2px;
   box-sizing: border-box;
 `;
 
 const DeleteButton = styled.button`
+  width: 70px;
+  height: 26px;
   cursor: pointer;
   padding: 6px;
 `;

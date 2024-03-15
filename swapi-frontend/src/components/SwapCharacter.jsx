@@ -7,12 +7,14 @@ import styled from "styled-components";
 const SwapButton = styled.button`
   padding: 5px;
   cursor: pointer;
+  width: 70px;
+  height: 26px;
 `;
 
 const StyledSelect = styled.select`
   padding: 5px;
   margin: 0;
-  min-width: 168px;
+  width: 165px;
 `;
 
 function SwapCharacter({ fetchCharactersAndUpdate, characters }) {

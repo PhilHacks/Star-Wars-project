@@ -25,6 +25,8 @@ const InputField = styled.input`
 `;
 
 const Button = styled.button`
+  width: 70px;
+  height: 26px;
   padding: 6px;
   cursor: pointer;
 `;

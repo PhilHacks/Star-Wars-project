@@ -4,7 +4,7 @@ import styled from "styled-components";
 import MessageComponent from "./MessageComponent";
 
 const ListContainer = styled.div`
-  height: calc(5 * 44px);
+  height: calc(5 * 41px);
   overflow-y: auto;
   margin-bottom: 30px;
   padding: 0;

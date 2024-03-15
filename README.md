@@ -97,4 +97,4 @@ The project is structured into two main folders:
 
 ## Database Configuration
 
-Detailed instructions for configuring both local and cloud (MongoDB Atlas) databases.
+Detailed instructions for configuring both local and cloud (MongoDB Atlas) databases!

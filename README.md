@@ -92,15 +92,15 @@ The backend codebase is located in the `backend` directory and it's structured a
 
 ```
 backend/
-├─ src/
-│ ├─ handler.js - Handles the business logic for API endpoints.
-│ ├─ mongoConnection.js - Manages the MongoDB database connection.
-│ ├─ mongoOperations.js - Performs database operations like CRUD.
-│ ├─ server.js - Sets up the Express server and API routes.
-│ └─ swapi.js - Handles fetching data from the external Star Wars API.
-├─ .gitignore - Specifies files to ignore in version control.
-├─ main.js - The main entry point for the backend server.
-└─ package.json - Defines the project and its dependencies.
+├── src/
+│   ├── handler.js
+│   ├── mongoConnection.js
+│   ├── mongoOperations.js
+│   ├── server.js
+│   └── swapi.js
+├── .gitignore
+├── main.js
+└── package.json
 ```
 
 ## Frontend
@@ -109,25 +109,22 @@ The frontend codebase is located in the `frontend` directory. It's a React appli
 
 ```
 frontend/
-├─ public/ - Contains the static files served by the React application.
-│ └─ img/
-│ └─ swapi.png - The application's screenshot for documentation.
-├─ src/
-│ ├─ components/ - Contains all the React components.
-│ │ ├─ CharacterForm.jsx - The form component for adding new characters.
-│ │ ├─ CharacterList.jsx - Lists all the characters with delete functionality.
-│ │ ├─ MessageComponent.jsx - Displays messages to the user.
-│ │ ├─ SpinnerComponent.jsx - Shows a loading spinner.
-│ │ └─ SwapCharacter.jsx - Component for swapping characters' positions.
-│ ├─ services/
-│ │ └─ CharacterService.js - Manages API calls for character operations.
-│ ├─ App.js - The root React component that assembles the app.
-│ ├─ index.css - Global styles for the app.
-│ ├─ index.js - The entry point for the React application.
-│ └─ setupTests.js - Configuration file for testing.
-├─ .gitignore - Specifies files to ignore in version control.
-├─ package-lock.json - Automatically generated for any operations where npm modifies either the node_modules tree or package.json.
-└─ package.json - Defines the frontend project and its dependencies.
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── CharacterForm.jsx
+│   │   ├── CharacterList.jsx
+│   │   ├── MessageComponent.jsx
+│   │   ├── SpinnerComponent.jsx
+│   │   └── SwapCharacter.jsx
+│   ├── services/
+│   │   └── CharacterService.js
+│   ├── App.css
+│   ├── App.js
+│   ├── index.css
+│   └── index.js
+├── .gitignore
+└── package.json
 ```
 
 ## Image of StarWars App

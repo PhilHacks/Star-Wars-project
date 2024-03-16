@@ -62,7 +62,6 @@ function CharacterList({ characters, fetchCharactersAndUpdate, setMessage }) {
 
   return (
     <ListContainer>
-      {loading && <p>Loading...</p>}
       <StyledList>
         {characters.map((character) => (
           <ListItem key={character._id} className="character-item">

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { removeCharacter } from "../services/CharacterService";
 import styled from "styled-components";
-import MessageComponent from "./MessageComponent";
 
 const ListContainer = styled.div`
   height: calc(5 * 41px);
@@ -42,8 +41,7 @@ const DeleteButton = styled.button`
   padding: 6px;
 `;
 
-function CharacterList({ characters, fetchCharactersAndUpdate }) {
-  const [message, setMessage] = useState("");
+function CharacterList({ characters, fetchCharactersAndUpdate, setMessage }) {
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async (characterId) => {
@@ -65,7 +63,6 @@ function CharacterList({ characters, fetchCharactersAndUpdate }) {
   return (
     <ListContainer>
       {loading && <p>Loading...</p>}
-      {message && <MessageComponent message={message} />}
       <StyledList>
         {characters.map((character) => (
           <ListItem key={character._id} className="character-item">

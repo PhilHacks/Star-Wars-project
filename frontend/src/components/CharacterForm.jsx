@@ -2,7 +2,6 @@ import { useState } from "react";
 import { addCharacter } from "../services/CharacterService";
 import styled from "styled-components";
 import SpinnerComponent from "./SpinnerComponent";
-import MessageComponent from "./MessageComponent";
 
 const CharacterFormContainer = styled.div`
   margin-bottom: 30px;
@@ -31,10 +30,9 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-function CharacterForm({ fetchCharactersAndUpdate, characters }) {
+function CharacterForm({ fetchCharactersAndUpdate, characters, setMessage }) {
   const [newCharacter, setNewCharacterName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
 
   const addNewCharacter = async (characterName) => {
     setLoading(true);
@@ -94,7 +92,6 @@ function CharacterForm({ fetchCharactersAndUpdate, characters }) {
         <Button onClick={handleAddCharacter}>Add</Button>
         {loading ? <SpinnerComponent /> : null}
       </FormContainer>
-      {message && <MessageComponent message={message} />}
     </CharacterFormContainer>
   );
 }

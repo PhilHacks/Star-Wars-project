@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from "styled-components";
 import CharacterForm from "./components/CharacterForm";
 import CharacterList from "./components/CharacterList";
 import SwapCharacter from "./components/SwapCharacter";
+import MessageComponent from "./components/MessageComponent";
 import { fetchCharacters } from "./services/CharacterService";
 
 const GlobalStyle = createGlobalStyle`
@@ -38,8 +39,16 @@ const Headline = styled.h2`
   margin: 0;
 `;
 
+const MessageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+`;
+
 function App() {
   const [characters, setCharacters] = useState([]);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     fetchCharactersAndUpdate();
@@ -60,16 +69,20 @@ function App() {
           <CharacterForm
             fetchCharactersAndUpdate={fetchCharactersAndUpdate}
             characters={characters}
+            setMessage={setMessage}
           />
           <Headline>Characters</Headline>
           <CharacterList
             fetchCharactersAndUpdate={fetchCharactersAndUpdate}
             characters={characters}
+            setMessage={setMessage}
           />
           <SwapCharacter
             fetchCharactersAndUpdate={fetchCharactersAndUpdate}
             characters={characters}
+            setMessage={setMessage}
           />
+          <MessageContainer>{message}</MessageContainer>
         </Content>
       </Container>
     </>

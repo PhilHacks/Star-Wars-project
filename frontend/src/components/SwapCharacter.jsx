@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { swapCharacters } from "../services/CharacterService";
 import SpinnerComponent from "./SpinnerComponent";
-import MessageComponent from "./MessageComponent";
+
 import styled from "styled-components";
 
 const SwapButton = styled.button`
@@ -17,11 +17,10 @@ const StyledSelect = styled.select`
   width: 165px;
 `;
 
-function SwapCharacter({ fetchCharactersAndUpdate, characters }) {
+function SwapCharacter({ fetchCharactersAndUpdate, characters, setMessage }) {
   const [selectedCharacter1, setSelectedCharacter1] = useState("");
   const [selectedCharacter2, setSelectedCharacter2] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
 
   const swapSelectedCharacters = () => {
     setLoading(true);
@@ -85,7 +84,6 @@ function SwapCharacter({ fetchCharactersAndUpdate, characters }) {
       </StyledSelect>
       <SwapButton onClick={swapSelectedCharacters}>Swap</SwapButton>
       {loading ? <SpinnerComponent /> : null}
-      {message && <MessageComponent message={message} />}
     </div>
   );
 }

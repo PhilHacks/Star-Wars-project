@@ -3,7 +3,6 @@ import styled, { createGlobalStyle } from "styled-components";
 import CharacterForm from "./components/CharacterForm";
 import CharacterList from "./components/CharacterList";
 import SwapCharacter from "./components/SwapCharacter";
-import MessageComponent from "./components/MessageComponent";
 import { fetchCharacters } from "./services/CharacterService";
 
 const GlobalStyle = createGlobalStyle`
